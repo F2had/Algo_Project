@@ -17,8 +17,9 @@
 
 
 {#Autocompelte input#}
-    <div class="pac-card" id="pac-card">
-        <div>
+    <section id="side">
+        <div class="float-left container text-left" id="">
+
 
 
 
@@ -43,23 +44,41 @@
                 <label for="use-strict-bounds">Strict Bounds</label>
             </div>
 
-        </div>
+
 
 {#        Input#}
 
-        <div id="pac-container" class="input-group">
-            <input id="pac-input" type="text" class="form-control mx-2" placeholder="From">
-        </div>
+        <form action="" id="myForm" name="myForm" method="post">
 
-        <div id="pac-container2" class="input-group">
-            <input id="pac-input2" type="text" class="form-control mx-2" placeholder="To">
-        </div>
+            <div id="pac-container" class="form-group">
 
+                <input id="pac-input" name="start" type="text" class="form-control mx-2" placeholder="From">
+
+             </div>
+
+             <div id="pac-container2" class="form-group">
+
+               <input id="pac-input2" name="end" type="text" class="form-control mx-2" placeholder="To">
+
+             </div>
+
+
+                <button type="submit" class="btn btn-lg btn-outline-dark m-4">GO</button>
+
+        </form>
+
+    </div>
+    </section>
+
+    <div>
+{#        To make sure date sent to Flask#}
+        <p>start {{ start }}</p>
+        <p>end {{ end }}</p>
     </div>
 
 {#    Map#}
 
-    <div class="container my-3" id="map"></div>
+    <div class="container my-3 border border-dark" id="map"></div>
     <div id="infowindow-content">
         <img src="" width="16" height="16" id="place-icon">
         <span id="place-name" class="title"></span>
@@ -86,7 +105,7 @@
         </div>
 
     </footer>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script type=text/javascript src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" ></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBI0OET1c0_SCwIMKMLOcMXWg6IoRECA2E&region=MY&libraries=places&callback=initMap" async defer></script>

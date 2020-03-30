@@ -1,3 +1,7 @@
+#side {
+    background-color: #000;
+
+}
 body {
     background-color: #dee3e2;
 }
@@ -21,6 +25,7 @@ h1 {
 
 /*Map and Autocomplete*/
 #map {
+
         height: 85%;
       }
       /* Optional: Makes the sample page fill the window. */
