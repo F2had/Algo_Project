@@ -58,10 +58,12 @@ h1 {
         font-family: Roboto;
       }
 
-      #pac-container {
+      #pac-container, #pac-container2 {
         padding-bottom: 12px;
         margin-right: 12px;
       }
+
+
 
       .pac-controls {
         display: inline-block;
@@ -74,7 +76,7 @@ h1 {
         font-weight: 300;
       }
 
-      #pac-input {
+      #pac-input, #pac-input2 {
         background-color: #fff;
         font-family: Roboto;
         font-size: 15px;
@@ -85,14 +87,8 @@ h1 {
         width: 400px;
       }
 
-      #pac-input:focus {
+      #pac-input, #pac-input2:focus {
         border-color: #4d90fe;
       }
 
-      #title {
-        color: #fff;
-        background-color: #4d90fe;
-        font-size: 25px;
-        font-weight: 500;
-        padding: 6px 12px;
-      }
+
