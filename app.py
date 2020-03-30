@@ -26,10 +26,10 @@ def cal(f, t):
 @app.route("/index.html", methods=['POST', 'GET'])
 def destains():
     if request.method == "POST":
-        start = request.form['start']
-        start1 = request.form['start1']
-        dest = request.form['destination']
-        dest1 = request.form['destination1']
+        start = request.form['f1']
+        start1 = request.form['f2']
+        dest = request.form['t1']
+        dest1 = request.form['t2']
 
         f = (start, start1)
         t = (dest, dest1)
