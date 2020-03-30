@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Al-Khwarizmi</title>
-
+<link href="https://fonts.googleapis.com/css?family=Comic+Neue&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <script src="https://kit.fontawesome.com/780e1570e3.js" crossorigin="anonymous"></script>
@@ -12,15 +12,14 @@
 
 <body>
 
-    <h1 class="text-center">Hello</h1>
+    <section id="header">
+        <div class="navbar navbar-dark bg-dark">
 
-
+            <a href="#header" class="navbar-brand"><img id="logo" src="https://researchpedia.info/wp-content/uploads/2014/04/04-khawarizmi.jpg" width="30" height="30" alt=""> Al-Khwarizmi</a>
 
 {#Autocompelte input#}
-    <section id="side">
-        <div class="float-left container text-left" id="">
 
-
+        <div class="text-center container text-left" id="">
 
 
             <div id="type-selector" class="pac-controls">
@@ -50,11 +49,15 @@
 
         <form action="" id="myForm" name="myForm" method="post">
 
-            <div id="pac-container" class="form-group">
+            <div class="row">
+
+              <div class="col-md-4">                       <div id="pac-container" class="form-group">
 
                 <input id="pac-input" name="start" type="text" class="form-control mx-2" placeholder="From">
 
-             </div>
+             </div></div>
+
+             <div class="col-md-4">
 
              <div id="pac-container2" class="form-group">
 
@@ -62,23 +65,31 @@
 
              </div>
 
+                </div>
 
-                <button type="submit" class="btn btn-lg btn-outline-dark m-4">GO</button>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-lg btn-outline-light ">GO</button>
+                </div>
+            </div>
 
         </form>
 
     </div>
+        </div>
+
     </section>
 
-    <div>
-{#        To make sure date sent to Flask#}
-        <p>start {{ start }}</p>
-        <p>end {{ end }}</p>
-    </div>
+
+
+
+
 
 {#    Map#}
 
-    <div class="container my-3 border border-dark" id="map"></div>
+
+        <div class="container my-3 border border-dark" id="map"></div>
+
+
     <div id="infowindow-content">
         <img src="" width="16" height="16" id="place-icon">
         <span id="place-name" class="title"></span>

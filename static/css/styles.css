@@ -1,12 +1,18 @@
+#logo {
+    border-radius: 100%;
+}
+
+
 #side {
-    background-color: #000;
+    background-color: #fff;
 
 }
 body {
+    font-family: 'Comic Neue', cursive;
     background-color: #dee3e2;
 }
 #footer {
-    background-color: #3f72af;
+    background-color: #1b262c;
     text-align: center;
     color: #fff;
 }
@@ -24,9 +30,11 @@ h1 {
 }
 
 /*Map and Autocomplete*/
-#map {
+ #map {
 
-        height: 85%;
+        height: 75%;
+      text-align: center;
+
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
@@ -52,48 +60,48 @@ h1 {
         display: inline;
       }
 
-      .pac-card {
-        margin: 10px 10px 0 0;
-        border-radius: 2px 0 0 2px;
-        box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        outline: none;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-        background-color: #fff;
-        font-family: Roboto;
-      }
+      /*.pac-card {*/
+      /*  margin: 10px 10px 0 0;*/
+      /*  border-radius: 2px 0 0 2px;*/
+      /*  box-sizing: border-box;*/
+      /*  -moz-box-sizing: border-box;*/
+      /*  outline: none;*/
+      /*  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);*/
+      /*  background-color: #fff;*/
+      /*  font-family: Roboto;*/
+      /*}*/
 
-      #pac-container, #pac-container2 {
-        padding-bottom: 12px;
-        margin-right: 12px;
-      }
+      /*#pac-container, #pac-container2 {*/
+      /*  padding-bottom: 12px;*/
+      /*  margin-right: 12px;*/
+      /*}*/
 
 
 
-      .pac-controls {
-        display: inline-block;
-        padding: 5px 11px;
-      }
+      /*.pac-controls {*/
+      /*  display: inline-block;*/
+      /*  padding: 5px 11px;*/
+      /*}*/
 
-      .pac-controls label {
-        font-family: Roboto;
-        font-size: 13px;
-        font-weight: 300;
-      }
+      /*.pac-controls label {*/
+      /*  font-family: Roboto;*/
+      /*  font-size: 13px;*/
+      /*  font-weight: 300;*/
+      /*}*/
 
-      #pac-input, #pac-input2 {
-        background-color: #fff;
-        font-family: Roboto;
-        font-size: 15px;
-        font-weight: 300;
-        margin-left: 12px;
-        padding: 0 11px 0 13px;
-        text-overflow: ellipsis;
-        width: 400px;
-      }
+      /*#pac-input, #pac-input2 {*/
+      /*  background-color: #fff;*/
+      /*  font-family: Roboto;*/
+      /*  font-size: 15px;*/
+      /*  font-weight: 300;*/
+      /*  margin-left: 12px;*/
+      /*  padding: 0 11px 0 13px;*/
+      /*  text-overflow: ellipsis;*/
+      /*  width: 400px;*/
+      /*}*/
 
-      #pac-input, #pac-input2:focus {
-        border-color: #4d90fe;
-      }
+      /*#pac-input, #pac-input2:focus {*/
+      /*  border-color: #4d90fe;*/
+      /*}*/
 
 
