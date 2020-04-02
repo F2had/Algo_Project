@@ -5,23 +5,17 @@ from gmplot import gmplot
 app = Flask(__name__)
 gm = gmplot
 
-website = "https://google.com/"
-
 d = distance
 
+@app.route("/", methods=['POST', 'GET'])
+def root():
+    if request.method == 'POST':
+        start = request.form['start']
+        end = request.form['end']
 
-@app.route("/")
-def load():
-    return render_template("index.html", website=website)
-
-
-@app.route("/", methods=['POST'])
-def getPoints():
-    start = request.form['start']
-    end = request.form['end']
-
-    return render_template("index.html", start=start, end=end)
-
+        return render_template("index.html", start=start, end=end)
+    else:
+        return render_template("index.html")
 
 if __name__ == '__main__':
     app.run(debug=True)
