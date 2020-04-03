@@ -5,8 +5,6 @@ from gmplot import gmplot
 app = Flask(__name__)
 gm = gmplot
 
-d = distance
-
 # FIXME: delete this when compute_path is fixed
 test_data = [
     (3.121120, 101.653580),
@@ -134,9 +132,11 @@ test_data = [
     (3.108370, 101.666230),
 ]
 
+
 def compute_path(start, end):
     # FIXME: replace with actual code.
     return test_data
+
 
 @app.route("/", methods=['POST', 'GET'])
 def root():
@@ -151,6 +151,7 @@ def root():
         return jsonify({'error': 'Missing input!'})
     else:
         return render_template("index.html")
+
 
 if __name__ == '__main__':
     app.run(debug=True)
