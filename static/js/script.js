@@ -59,3 +59,8 @@ function drawPath(points) {
 
     path.setMap(map);
 }
+
+loader = document.getElementById("loader");
+        function hideLoader() {
+            loader.style.display = "none";
+        }
