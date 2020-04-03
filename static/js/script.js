@@ -14,14 +14,15 @@ $(document).ready(function () {
                     alert("Missing");
 
                 } else {
-
-                    alert("All gucci");
+                    drawPath(data.data);
                 }
             });
         event.preventDefault();
     });
 });
 
+
+let map;
 
 function initMap() {
     let map = new google.maps.Map(document.getElementById('map'), {
@@ -111,4 +112,22 @@ function initMap() {
             console.log('Checkbox clicked! New state=' + this.checked);
             autocomplete.setOptions({strictBounds: this.checked});
         });
+}
+
+function drawPath(points) {
+    // if points is null or undefined
+    if(!points)
+        return;
+    let maps_coords = points.forEach(e => new google.maps.LatLng(e[0], e[1]));
+
+    let path = new google.maps.Polyline({
+        clickable: true,
+        geodesic: true,
+        path: maps_coords,
+        strokeColor: "#6495ED",
+        strokeOpacity: 1.000000,
+        strokeWeight: 10
+    });
+
+    path.setMap(map);
 }
