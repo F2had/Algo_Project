@@ -15,7 +15,7 @@ def compute_path(start, end):
     directions_result = gmaps.directions(start, end, mode="transit", departure_time=now)
     x = []
     for i in directions_result:
-        x.append(j['overview_polyline']['points'])
+        x.append(i['overview_polyline']['points'])
     test_data = polyline.decode(str(x))
     return test_data
 
