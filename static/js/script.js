@@ -11,7 +11,7 @@ $(document).ready(function() {
             })
             .done(function(data) {
                 if (data.error) {
-                    alert("Missing");
+                    alert(data.error);
 
                 } else {
                     drawPath(data.data);
@@ -23,6 +23,12 @@ $(document).ready(function() {
 
 
 let map;
+let time =5;
+let distance =5;
+
+
+document.getElementById("distance").textContent += " " +distance;
+document.getElementById("time").textContent += " " +time;
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -35,7 +41,9 @@ function initMap() {
 
     let from = document.getElementById('pac-input');
     let to = document.getElementById('pac-input2');
+    let card = document.getElementById("card")
 
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);
 
     let start = new google.maps.places.Autocomplete(from);
     let end = new google.maps.places.Autocomplete(to);

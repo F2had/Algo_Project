@@ -10,7 +10,10 @@
     display: flex;
 
 }
-
+#time,#distance,#card {
+    font-size: 1rem;
+    background-color: #dee3e2;
+}
 #logo {
     border-radius: 100%;
 }

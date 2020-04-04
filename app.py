@@ -7,6 +7,8 @@ from datetime import datetime
 
 app = Flask(__name__)
 gm = gmplot
+time = 5
+distance =5
 
 
 def compute_path(start, end):
