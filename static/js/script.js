@@ -25,7 +25,7 @@ $(document).ready(function() {
 let map;
 
 function initMap() {
-    let map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map'), {
         center: {
             lat: 3.128401,
             lng: 101.650695
@@ -46,7 +46,7 @@ function drawPath(points) {
     // if points are null or undefined
     if (!points)
         return;
-    let maps_coords = points.forEach(e => new google.maps.LatLng(e[0], e[1]));
+    let maps_coords = points.map(e => new google.maps.LatLng(e[0], e[1]));
 
     let path = new google.maps.Polyline({
         clickable: true,
@@ -61,6 +61,6 @@ function drawPath(points) {
 }
 
 loader = document.getElementById("loader");
-        function hideLoader() {
-            loader.style.display = "none";
-        }
+function hideLoader() {
+	loader.style.display = "none";
+}

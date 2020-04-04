@@ -16,8 +16,10 @@ def compute_path(start, end):
     x = []
     for i in directions_result:
         x.append(i['overview_polyline']['points'])
-    test_data = polyline.decode(str(x))
-    return test_data
+
+	# Get only the first path for now.
+    result = polyline.decode(x[0])
+    return result
 
 
 @app.route("/", methods=['POST', 'GET'])
