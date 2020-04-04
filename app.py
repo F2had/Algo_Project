@@ -17,7 +17,7 @@ def compute_path(start, end):
     for i in directions_result:
         x.append(i['overview_polyline']['points'])
 
-	# Get only the first path for now.
+    # Get only the first path for now.
     result = polyline.decode(x[0])
     return result
 
