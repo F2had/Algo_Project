@@ -10,12 +10,12 @@ app = Flask(__name__)
 def compute_path(start, end):
     gmaps = googlemaps.Client(key='AIzaSyBqxu4tCWwSfaKcN7cQcReXzsZDY0HeG1k')
     now = datetime.now()
-    directions_result = gmaps.directions(start, end, mode="transit", departure_time=now)
+    directions_result = gmaps.directions(start, end, mode="transit", departure_time=now, region='MY')
 
     if len(directions_result) == 0:
         return {"error": "Could not find path"}
 
-    distancetime_result = gmaps.distance_matrix(start, end, mode="transit", departure_time=now)
+    distancetime_result = gmaps.distance_matrix(start, end, mode="transit", departure_time=now, region='MY')
 
     result = {}
 
