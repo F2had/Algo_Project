@@ -36,7 +36,7 @@ function initMap() {
 
     let from = document.getElementById('pac-input');
     let to = document.getElementById('pac-input2');
-    let card = document.getElementById("card");
+    let card = document.getElementById("time-distance-card");
 
     map.controls[google.maps.ControlPosition.LEFT_TOP].push(card);
 
@@ -66,6 +66,13 @@ function drawPath(data) {
     });
 
     current_path.setMap(map);
+
+    let time = data.time;
+    let distance = data.distance;
+
+    $('#distance').text(`Distance: ${distance}`);
+    $('#time').text(`Time: ${time}`);
+    $('#time-distance-card').css("display", "block");
 }
 
 loader = document.getElementById("loader");
