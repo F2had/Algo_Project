@@ -1,14 +1,15 @@
-from flask import Flask, url_for, render_template, request, jsonify
+from datetime import datetime
+
+import googlemaps
+import polyline
+from flask import Flask, render_template, request, jsonify
 from geopy import distance
 from gmplot import gmplot
-import polyline
-import googlemaps
-from datetime import datetime
 
 app = Flask(__name__)
 gm = gmplot
 time = 5
-distance =5
+distance = 5
 
 
 def compute_path(start, end):
@@ -21,7 +22,7 @@ def compute_path(start, end):
 
     # Get only the first path for now.
     result = polyline.decode(x[0])
-    return result
+    return {"data": result, "distance": distance, "time": time}
 
 
 @app.route("/", methods=['POST', 'GET'])
