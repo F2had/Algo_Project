@@ -47,13 +47,13 @@ function initMap() {
 
 function drawPath(data) {
     // if points are null or undefined
-    let points = data.data;
+    let points = data.path;
     if (!points)
         return;
     let maps_coords = points.map(e => new google.maps.LatLng(e[0], e[1]));
 
     // removing the old path from the map
-    if(current_path)
+    if (current_path)
         current_path.setMap(null);
 
     current_path = new google.maps.Polyline({
@@ -64,6 +64,10 @@ function drawPath(data) {
         strokeOpacity: 1.000000,
         strokeWeight: 10
     });
+
+    let bounds = new google.maps.LatLngBounds(
+        data.bounds['southwest'], data.bounds['northeast']);
+    map.fitBounds(bounds);
 
     current_path.setMap(map);
 

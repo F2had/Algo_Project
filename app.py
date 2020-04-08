@@ -3,26 +3,35 @@ from datetime import datetime
 import googlemaps
 import polyline
 from flask import Flask, render_template, request, jsonify
-from geopy import distance
-from gmplot import gmplot
 
 app = Flask(__name__)
-gm = gmplot
-time = 5
-distance = 5
 
 
 def compute_path(start, end):
     gmaps = googlemaps.Client(key='AIzaSyBqxu4tCWwSfaKcN7cQcReXzsZDY0HeG1k')
     now = datetime.now()
     directions_result = gmaps.directions(start, end, mode="transit", departure_time=now)
-    x = []
-    for i in directions_result:
-        x.append(i['overview_polyline']['points'])
 
-    # Get only the first path for now.
-    result = polyline.decode(x[0])
-    return {"data": result, "distance": distance, "time": time}
+    if len(directions_result) == 0:
+        return {"error": "Could not find path"}
+
+    distancetime_result = gmaps.distance_matrix(start, end, mode="transit", departure_time=now)
+
+    result = {}
+
+    path = directions_result[0]['overview_polyline']['points']
+    result['path'] = polyline.decode(path)
+
+    result['bounds'] = directions_result[0]['bounds']
+
+    row = distancetime_result['rows'][0]['elements'][0]
+    distance = row['distance']['text']
+    time = row['duration']['text']
+
+    result['distance'] = distance
+    result['time'] = time
+
+    return result
 
 
 @app.route("/", methods=['POST', 'GET'])
