@@ -2,5 +2,3 @@
 
 
 This a project for WIA2005 - ALGORITHM DESIGN AND ANALYSIS
-test
-something
