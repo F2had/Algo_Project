@@ -1,15 +1,15 @@
-$(document).ready(function () {
-    $("#myForm").on('submit', function (event) {
+$(document).ready(function() {
+    $("#myForm").on('submit', function(event) {
 
         $.ajax({
-            data: {
-                start: $('#pac-input').val(),
-                end: $('#pac-input2').val()
-            },
-            type: 'POST',
-            url: '/'
-        })
-            .done(function (data) {
+                data: {
+                    start: $('#pac-input').val(),
+                    end: $('#pac-input2').val()
+                },
+                type: 'POST',
+                url: '/'
+            })
+            .done(function(data) {
                 if (data.error) {
                     alert(data.error);
 
@@ -19,6 +19,12 @@ $(document).ready(function () {
             });
         event.preventDefault();
     });
+
+//    Call writeLocations whenever user start typing for starting locations.
+    $('.input').on('keydown', writeLocations);
+
+    // Read the data form locations list and print it to Data-list element
+
 });
 
 
@@ -34,14 +40,10 @@ function initMap() {
         zoom: 13
     });
 
-    let from = document.getElementById('pac-input');
-    let to = document.getElementById('pac-input2');
     let card = document.getElementById("time-distance-card");
 
     map.controls[google.maps.ControlPosition.LEFT_TOP].push(card);
 
-    let start = new google.maps.places.Autocomplete(from);
-    let end = new google.maps.places.Autocomplete(to);
 }
 
 
@@ -84,3 +86,16 @@ loader = document.getElementById("loader");
 function hideLoader() {
     loader.style.display = "none";
 }
+
+function writeLocations(loca) {
+//        FIXME
+// replace list the the actual locations list
+        let loc = ['Pantai Hill Park', 'Pantai Panorama', 'UM Central', 'KK8', 'KK12'];
+        let option = '';
+        for (let i = 0; i < loc.length; i++) {
+            option += '"<option value="' + loc[i] + '"></option>';
+
+        }
+        $("#locations").html(option);
+
+    }
