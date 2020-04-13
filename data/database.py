@@ -12,8 +12,11 @@ database = {
     'LRT Kerinchi': GraphPoint('LRT Kerinchi', 3.115546, 101.668395),
     'LRT Abdullah Hukum': GraphPoint('LRT Abdullah Hukum', 3.119093, 101.672967),
     'Pantai Panorama Condominium': GraphPoint('Pantai Panorama Condominium', 3.1095448, 101.6627078),
+
 }
 
+
+#
 connect_points(database['UM CENTRAL'], database['KL Gateway'], MODE_BUS)
 connect_points(database['UM CENTRAL'], database['KL Gateway'], MODE_WALKING)
 connect_points(database['KL Gateway'], database['Lrt Station Universiti'], MODE_WALKING)
