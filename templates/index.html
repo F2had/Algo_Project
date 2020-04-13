@@ -29,14 +29,14 @@
 
                 {# Input#}
 
-                <form action="" id="myForm" name="myForm" method="post">
+                <form action=""  id="myForm" name="myForm" method="post">
 
                     <div class="row">
 
                         <div class="col-md-4">
                             <div id="pac-container" class="form-group">
 
-                                <input id="pac-input" name="start" type="text" class="form-control mx-2" placeholder="From">
+                                <input id="pac-input" list="locations" name="start" type="text" class="form-control mx-2 input" placeholder="From">
 
                             </div>
                         </div>
@@ -45,7 +45,7 @@
 
                             <div id="pac-container2" class="form-group">
 
-                                <input id="pac-input2" name="end" type="text" class="form-control mx-2" placeholder="To">
+                                <input id="pac-input2" list="locations" name="end" type="text" class="form-control mx-2 input" placeholder="To">
 
                             </div>
 
@@ -60,6 +60,11 @@
 
             </div>
         </div>
+
+{# Data-List for locations #}
+        <datalist id="locations">
+
+        </datalist>
 
     </section>
 
