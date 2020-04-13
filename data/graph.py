@@ -20,6 +20,7 @@ class GraphPointConnection:
 
 
 class GraphPoint:
+
     def __init__(self, name, lat, lon):
         self.name = name
         self.lat = lat
@@ -36,5 +37,8 @@ class GraphPoint:
             other.connections.append((self, transit))
 
 
+
 def connect_points(from_point, to_point, transit, is_one_way=False):
+
     from_point.connect(to_point, transit, is_one_way)
+    from_point
