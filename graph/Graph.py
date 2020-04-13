@@ -36,7 +36,7 @@ class Vertex:
         return self.name
 
     def getPointPosition(self):
-
+        pass
 
     def __repr__(self):
         return 'GraphPoint(%s,%s,%s)' % (repr(self.name),repr(self.latitude),repr(self.longtitude))

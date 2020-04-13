@@ -1,5 +1,5 @@
 
-from .graph import *
+from get_data import *
 
 database = {
     'UM CENTRAL': GraphPoint('UM CENTRAL', 3.1210462, 101.6536228),

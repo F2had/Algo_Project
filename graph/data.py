@@ -1,83 +1,31 @@
-import polyline
-from jsonpath import jsonpath
-import requests
-import json
-from lxml import etree
+import
 
-class data:
+database = {
+    'UM CENTRAL':point('UM CENTRAL'),
+    'KLCC': point('KLCC', 44.0509338, -123.0946959),
+    'Mid Valley': GraphPoint('Mid Valley', 3.1183878, 101.6783698),
+    'KL Sentral': GraphPoint('KL Sentral', 3.1343385, 101.6863371),
 
-    def __init__(self):
+    'KL Gateway': GraphPoint('KL Gateway', 3.113827, 101.6630249),
+    'Lrt Station Universiti': GraphPoint('Lrt Station Universiti', 3.1146872, 101.6616935),
+    'LRT Kerinchi': GraphPoint('LRT Kerinchi', 3.115546, 101.668395),
+    'LRT Abdullah Hukum': GraphPoint('LRT Abdullah Hukum', 3.119093, 101.672967),
+    'Pantai Panorama Condominium': GraphPoint('Pantai Panorama Condominium', 3.1095448, 101.6627078),
 
-        self.connection_url='https://maps.googleapis.com/maps/api/directions/json?'
-        self.point_url='https://maps.googleapis.com/maps/api/place/textsearch/json?'
-
-        self.headers={
-            'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36'
-        }
-
-        self.conection_params={
-            'key': 'AIzaSyBY-vvkInUrKKkdiCOZh36MggdgJRh1BbI',
-            'origin':None,
-            'destination':None,
-            'mode':None
-        }
-
-        self.point_params={
-            'query':None,
-            'key': 'AIzaSyBY-vvkInUrKKkdiCOZh36MggdgJRh1BbI',
-        }
-
-# send url request and return point or connection information
-    def connection_points(self,origin,destination,mode):
-        self.conection_params['origin']=origin
-        self.conection_params['destination']=destination
-        self.conection_params['mode']=mode
-        response = requests.get(self.connection_url, headers=self.headers, params=self.conection_params)
-        connection=self.parse_connection(response,origin,destination)
-        return connection
-
-    def point(self,name):
-        self.point_params['query']=name
-        response = requests.get(self.point_url, headers=self.headers, params=self.point_params)
-        point=self.parse_point(response,name)
-        return point
+}
 
 
-# parse detail point or connection information from response
-    def parse_connection(self,response,origin,destination):
-        text=json.loads(response.content)
-        info=jsonpath(text,'$..routes')[0]
-        for i in info:
-            connection= {
-            #connection['from_point']=i['legs'][0]['start_address']
-            #connection['to_point']=i['legs'][0]['end_address']
-            'from_point':origin,
-            'to_point':destination,
-            'distance': i['legs'][0]['distance']['value'],
-            'travel_mode':i['legs'][0]['steps'][0]['travel_mode']
-            }
-            return connection
+#
+connect_points(database['UM CENTRAL'], database['KL Gateway'], MODE_BUS)
+connect_points(database['UM CENTRAL'], database['KL Gateway'], MODE_WALKING)
+connect_points(database['KL Gateway'], database['Lrt Station Universiti'], MODE_WALKING)
+connect_points(database['KL Gateway'], database['Pantai Panorama Condominium'], MODE_WALKING)
+connect_points(database['LRT Kerinchi'], database['Pantai Panorama Condominium'], MODE_WALKING)
+connect_points(database['LRT Abdullah Hukum'], database['Mid Valley'], MODE_WALKING)
 
-    def parse_point(self,response,name):
-        text = json.loads(response.content)
-        info = jsonpath(text, '$..results')[0]
-        for i in info:
-            point={
-                'name':name,
-                'location':tuple((i['geometry']['location']['lat'],i['geometry']['location']['lng']))
-            }
-            return point
+# LRT train
+connect_points(database['Lrt Station Universiti'], database['LRT Kerinchi'], MODE_TRAIN)
+connect_points(database['LRT Kerinchi'], database['LRT Abdullah Hukum'], MODE_TRAIN)
+connect_points(database['LRT Abdullah Hukum'], database['KL Sentral'], MODE_TRAIN)
+connect_points(database['KL Sentral'], database['KLCC'], MODE_TRAIN)
 
-
-    def save_data(self,data):
-        with open('data.json','w') as fp:
-            json.dump(data,fp)
-
-
-
-if __name__ == '__main__':
-    g=data()
-    r=g.point('university of malaya')
-    c=g.connection_points('university of malaya','kl gateway','walking')
-    print(r)
-    print(c)
