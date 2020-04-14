@@ -4,7 +4,7 @@ import googlemaps
 
 gmaps = googlemaps.Client(key='AIzaSyBY-vvkInUrKKkdiCOZh36MggdgJRh1BbI')
 
-search = "KL Sentral "
+search = 'KLCC'
 
 print(gmaps.geocode(search))
 print(gmaps.geocode(search)[0]['geometry']['location'])
