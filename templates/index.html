@@ -63,7 +63,9 @@
 
 {# Data-List for locations #}
         <datalist id="locations">
-
+            {% for loc_name in locations %}
+                <option value="{{ loc_name }}"></option>
+            {% endfor %}
         </datalist>
 
     </section>

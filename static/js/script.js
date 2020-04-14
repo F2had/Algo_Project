@@ -20,7 +20,6 @@ $(document).ready(function() {
         event.preventDefault();
     });
 
-    writeLocations();
     //Whenever the user start typing for the first or the second it'll start show options
     $('#pac-input').keydown(function(){addListAtt(this.id);});
     $('#pac-input2').keydown(function(){addListAtt(this.id);});
@@ -87,19 +86,6 @@ function hideLoader() {
     loader.style.display = "none";
 }
 
-// Write locations to the data-list for the autocomplete.
-function writeLocations(loca) {
-//        FIXME
-// replace list the the actual locations list
-        let loc = ['Pantai Hill Park', 'Pantai Panorama', 'UM Central', 'KK8', 'KK12'];
-        let option = '';
-        for (let i = 0; i < loc.length; i++) {
-            option += '"<option value="' + loc[i] + '"></option>';
-        }
-        $("#locations").html(option);
-
-    }
-// When called add the list attribute with value locations
 function addListAtt(id){
     $('#'+id).attr('list', 'locations');
 }

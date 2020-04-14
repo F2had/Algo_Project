@@ -3,6 +3,8 @@ import googlemaps
 import polyline
 from flask import Flask, render_template, request, jsonify
 
+from data import database
+
 app = Flask(__name__)
 
 
@@ -66,7 +68,7 @@ def root():
 
         return jsonify({'error': 'Missing input!'})
     else:
-        return render_template("index.html")
+        return render_template("index.html", locations=database.points_names)
 
 
 if __name__ == '__main__':
