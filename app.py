@@ -29,16 +29,23 @@ def getBounds(test_path):
                           (3.11941, 101.65459), (3.1201, 101.65461)]
 
     bounds = {}
+    north = -180
+    west = 180
+    east = -180
+    south = 180
 
-    southwest_point = min(test_path)
-    northeast_point = max(test_path)
+    for point in test_path:
+        if point[0] > north:
+            north = point[0]
+        if point[0] < south:
+            south = point[0]
 
-    northeast = [round(northeast_point[0] + 0.000005, 6), round(northeast_point[1] + 0.0134951, 7)]
+        if point[1] > east:
+            east = point[1]
+        if point[1] < west:
+            west = point[1]
 
-    southwest = [round(southwest_point[0] + 0.000005, 6), round(southwest_point[1] + 0.0134951, 7)]
-
-    bounds['bounds'] = {'northeast': {'lat': northeast[0], 'lng': northeast[1]},
-                        'southwest': {'lat': southwest[0], 'lng': southwest[1]}}
+    bounds = {'northeast': {'lat': north, 'lng': east}, 'southwest': {'lat': south, 'lng': west}}
     return bounds
 
 
