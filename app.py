@@ -7,7 +7,6 @@ app = Flask(__name__)
 
 
 def getBounds(test_path):
-    bounds = {}
     north = -180
     west = 180
     east = -180
@@ -43,7 +42,7 @@ def compute_path(start, end):
     path = directions_result[0]['overview_polyline']['points']
     result['path'] = polyline.decode(path)
 
-    result['bounds'] = directions_result[0]['bounds']
+    result['bounds'] = getBounds(result['path'])
 
     row = distancetime_result['rows'][0]['elements'][0]
     distance = row['distance']['text']
