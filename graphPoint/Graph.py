@@ -88,7 +88,6 @@ class Graph:
 
 if __name__ == '__main__':
     d=database()
-    vertex=d.point_database
     edges=d.connection_database
     g=Graph(edges)
     print(g.path())
