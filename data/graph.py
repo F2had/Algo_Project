@@ -36,6 +36,12 @@ class GraphPoint:
         if not is_one_way:
             other.connections.append((self, transit))
 
+    def __str__(self):
+        return f"GraphPoint('{self.name}', {self.lat}, {self.lon})"
+
+    def __repr__(self):
+        return f"GraphPoint('{self.name}', {self.lat}, {self.lon})"
+
 
 
 def connect_points(from_point, to_point, transit, is_one_way=False):
