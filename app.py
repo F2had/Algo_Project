@@ -30,7 +30,7 @@ def getBounds(test_path):
 
 
 def compute_path(start, end):
-    gmaps = googlemaps.Client(key='AIzaSyBY-vvkInUrKKkdiCOZh36MggdgJRh1BbI')
+    gmaps = googlemaps.Client(key='AIzaSyApye8aayb20yXZkHybB3XEvO1bvgfDy3w')
     now = datetime.now()
     directions_result = gmaps.directions(start, end, mode="transit", departure_time=now, region='MY')
 

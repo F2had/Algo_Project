@@ -2,7 +2,8 @@
 
 import googlemaps
 
-__gmaps = googlemaps.Client(key='AIzaSyBY-vvkInUrKKkdiCOZh36MggdgJRh1BbI')
+__gmaps = googlemaps.Client(key='AIzaSyApye8aayb20yXZkHybB3XEvO1bvgfDy3w')
+
 
 
 def get_latlon(point):
