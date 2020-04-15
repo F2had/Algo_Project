@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Al-Khwarizmi</title>
+    <link rel="icon" href="https://researchpedia.info/wp-content/uploads/2014/04/04-khawarizmi.jpg">
     <link href="https://fonts.googleapis.com/css?family=Comic+Neue&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -19,7 +20,7 @@
     <div id="time"> Time:</div>
     <div id="distance">Distance:</div>
 </div>
-<section id="header">
+
     <div class="navbar navbar-dark bg-dark text-white">
 
         <a href="#header" class="navbar-brand"><img id="logo"
@@ -28,7 +29,7 @@
 
         {#Autocompelte input#}
 
-        <div class="text-center container text-left" id="">
+        <section class="text-center container text-left" id="">
 
             {# Input#}
 
@@ -46,55 +47,47 @@
                     </div>
 
                     <div class="col-md-4">
-
                         <div id="pac-container2" class="form-group">
-
-                            <input id="pac-input2" list="" name="end" type="text" class="form-control mx-2"
-                                   placeholder="To">
-
+                            <input id="pac-input2" list="" name="end" type="text" class="form-control mx-2" placeholder="To">
                         </div>
-
                     </div>
 
                     <div class="col-md-4">
-
                         <button type="submit" class="btn btn-lg btn-outline-light ">GO</button>
                     </div>
-                    <button id="getDatabaseBtn" class="btn btn-lg btn-outline-light">Get DB Connections</button>
-                    <table>
-                        <tr style="color: #6495ED">
-                            <td>
-                                WALKIING
-                            </td>
-                        </tr>
-                        <tr style="color: #ed896b">
-                            <td>BUS</td>
-                        </tr>
-                        <tr style="color: #52ff32">
-                            <td>
-                                TRAIN
-                            </td>
-                        </tr>
-                    </table>
+
+                    <div class="col-md-4">
+                         <button id="getDatabaseBtn" class="btn btn-sm btn-outline-light">Get DB Connections</button>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-sm-12" style="color: #6495ED">WALKING</div>
+                        <div class="col-sm-12" style="color: #ed896b">BUS</div>
+                        <div class="col-sm-12" style="color: #52ff32">TRAIN</div>
+                    </div>
+
                 </div>
+
 
             </form>
 
-        </div>
+        </section>
     </div>
 
     {# Data-List for locations #}
     <datalist id="locations">
         {% for loc_name in locations %}
-            <option value="{{ loc_name }}"></option>
+        <option value="{{ loc_name }}"></option>
         {% endfor %}
     </datalist>
 
-</section>
+
 
 {# Map#}
 
-<div class="container my-3 border border-dark" id="map"></div>
+<div class="container-fluid my-3 border border-dark" id="map"></div>
 
 <div id="infowindow-content">
     <img src="" width="16" height="16" id="place-icon">

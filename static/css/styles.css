@@ -11,8 +11,8 @@
 
 }
 #time,#distance,#card {
-    font-size: 1rem;
-    background-color: #dee3e2;
+    font-size: 1.025rem;
+    background-color: #fff;
 }
 #logo {
     border-radius: 100%;
@@ -61,4 +61,8 @@ body {
 
 #map #infowindow-content {
     display: inline;
+}
+
+#header {
+    text-align: center;
 }
