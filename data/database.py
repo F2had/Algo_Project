@@ -1,7 +1,8 @@
 from .database_builder import get_latlon
 from .graph import GraphPoint, connect_points, MODE_BUS, MODE_WALKING, MODE_TRAIN
+from os import path
 
-points_names =[
+points_names = [
     'Sunway Pyramid',
     'UM CENTRAL',
     'Mid Valley Megamall',
@@ -25,14 +26,27 @@ points_names =[
 
 points = {}
 
+# load cache
+if path.isfile('cache_points'):
+    with open('cache_points', 'r') as cache_file:
+        for line in cache_file:
+            point = eval(line)
+            if point.name in points_names:
+                points[point.name] = point
+
+
 # build the real points data collection
-for point_n in points_names:
-    latlon =list(get_latlon(point_n))
-    points[point_n] = GraphPoint(point_n, latlon[0], latlon[1])
+# only build points that are not present in the cache
+with open('cache_points', 'w') as cache_file:
+    for point_n in points_names:
+        if not point_n in points:
+            latlon =list(get_latlon(point_n))
+            points[point_n] = GraphPoint(point_n, latlon[0], latlon[1])
+            print(f'geocode: {point_n}')
+        print(points[point_n], file=cache_file)
 
 
 # Connections building
-
 
 #walking
 
