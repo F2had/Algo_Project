@@ -1,9 +1,11 @@
 from datetime import datetime
+
 import googlemaps
 import polyline
 from flask import Flask, render_template, request, jsonify
 
 from data import database
+from data.graph import MODE_WALKING, MODE_BUS, MODE_TRAIN
 
 app = Flask(__name__)
 
@@ -54,6 +56,36 @@ def compute_path(start, end):
     result['time'] = time
 
     return result
+
+
+@app.route("/graphdata", methods=['GET'])
+def graphdata():
+    paths = []
+    visited = []
+    flat_path = []
+
+    modesNames = {MODE_WALKING: "walking", MODE_BUS: "bus", MODE_TRAIN: "train"}
+
+    def add_connections(point):
+        if point.name in visited:
+            return
+        visited.append(point.name)
+        for connection in point.connections:
+            paths.append([point, connection[0], connection[1]])
+            add_connections(connection[0])
+
+    for point_n, point in database.points.items():
+        add_connections(point)
+
+    for i in range(len(paths)):
+        path = paths[i]
+        path[0] = (path[0].lat, path[0].lon)
+        path[1] = (path[1].lat, path[1].lon)
+        flat_path.append(path[0])
+        flat_path.append(path[1])
+        path[2] = modesNames[path[2]]
+        paths[i] = path
+    return jsonify({"paths": paths, "bounds": getBounds(flat_path)})
 
 
 @app.route("/", methods=['POST', 'GET'])
