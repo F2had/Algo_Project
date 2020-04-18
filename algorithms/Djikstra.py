@@ -1,37 +1,69 @@
-import sys
+from math import inf
 
-class Graph():
+# TODO: use cache for distance and time as well
+import googlemaps
 
-    def __init__(self,vert):
-        self.V = vert
-        self.graph = [[0 for column in range(vert)] for row in range(vert)]
+from data.database import points, MODE_WALKING
 
-    def printSolution(self, dist):
-        print ("Vertex \tDistance from Source")
-        for node in range(self.V):
-            print(node,"\t",dist[node])
+__client = googlemaps.Client(key='AIzaSyApye8aayb20yXZkHybB3XEvO1bvgfDy3w')
 
 
-    def minDistance(self,dist,sptSet):
-        min = sys.maxsize
-        for z in range(self.V):
-            if dist[z]<min and sptSet[z]==False:
-                min = dist[z]
-                mindex = z
+def getTime(from_p, to_p, method):
+    result = __client.distance_matrix(from_p, to_p, mode='walking' if method == MODE_WALKING else 'transit',
+                                      region='MY')
 
-        return mindex
+    time = result['rows'][0]['elements'][0]['duration']['value']
+    return time
 
-    def dijkstra(self,src):
-        dist = [sys.maxsize] * self.V
-        dist[src]=0
-        sptSet = [False]*self.V
-        
-        for cout in range(self.V):
-            u =self.minDistance(dist,sptSet)
-            sptSet[u]=True
-            for v in range(self.V):
-                if self.graph[u][v]>0 and sptSet[v]==False and dist[v] > dist[u]+self.graph[u][v]:
-                    dist[v] = dist[u] + self.graph[u][v]
 
-        self.printSolution(dist)
-g.dijkstra(0)
+def findPath(start_name, end_name):
+    # make sure the arguments are in the database
+    assert start_name in points and end_name in points, "These points does not exist in our database"
+
+    # initialize the values
+    visited = []
+    prev = {point_n: None for point_n in points.keys()}
+
+    time = {point_n: inf for point_n in points.keys()}
+    # TODO: use the distance or display it.
+    distance = {point_n: inf for point_n in points.keys()}
+
+    # the first point does not have previous and distance and time to itself is 0
+    time[start_name] = distance[start_name] = 0
+    prev[start_name] = None
+
+    # go through all points in the database
+    for _ in range(len(points)):
+        # get the one with the lowest time and not yet visited
+        min_time_n = min(filter(lambda x: not x[0] in visited, time.items()), key=lambda x: x[1])[0]
+        current_point = points[min_time_n]
+
+        visited.append(current_point.name)
+
+        # TODO: use connections object instead of tuple
+        for connection in current_point.connections:
+            if not connection[0].name in visited:
+                time_between = getTime((current_point.lat, current_point.lon),
+                                       (connection[0].lat, connection[0].lon), connection[1])
+                if time[current_point.name] + time_between <= time[connection[0].name]:
+                    time[connection[0].name] = time[current_point.name] + time_between
+                    prev[connection[0].name] = current_point.name
+
+    if prev[end_name] == -1:
+        print(f'No path found from {start_name} to {end_name}')
+        return
+    path = []
+
+    u = end_name
+    path.append(u)
+
+    while prev[u]:
+        path.insert(0, prev[u])
+        u = prev[u]
+
+    print(path)
+    print(time[end_name])
+
+
+if __name__ == '__main__':
+    findPath('Masjid Al-Husna', 'Pantai Hill Park')
