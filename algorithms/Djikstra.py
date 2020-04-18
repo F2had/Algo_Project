@@ -50,19 +50,19 @@ def findPath(start_name, end_name):
                     prev[connection[0].name] = current_point.name
 
     if prev[end_name] == -1:
-        print(f'No path found from {start_name} to {end_name}')
-        return
+        # TODO: replace with actual working error handling
+        raise Exception(f'No path found from {start_name} to {end_name}')
     path = []
 
     u = end_name
-    path.append(u)
+    path.append((points[u].lat, points[u].lon))
 
     while prev[u]:
-        path.insert(0, prev[u])
         u = prev[u]
+        path.insert(0, (points[u].lat, points[u].lon))
 
-    print(path)
-    print(time[end_name])
+    # for now distance is -1, because if it was left as infinity it will make an error in JS
+    return {'path': path, 'time': time[end_name], 'distance': -1}
 
 
 if __name__ == '__main__':

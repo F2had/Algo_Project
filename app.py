@@ -1,9 +1,6 @@
-from datetime import datetime
-
-import googlemaps
-import polyline
 from flask import Flask, render_template, request, jsonify
 
+from algorithms.Djikstra import findPath
 from data import database
 from data.graph import MODE_WALKING, MODE_BUS, MODE_TRAIN
 
@@ -32,28 +29,9 @@ def getBounds(test_path):
 
 
 def compute_path(start, end):
-    gmaps = googlemaps.Client(key='AIzaSyApye8aayb20yXZkHybB3XEvO1bvgfDy3w')
-    now = datetime.now()
-    directions_result = gmaps.directions(start, end, mode="transit", departure_time=now, region='MY')
-
-    if len(directions_result) == 0:
-        return {"error": "Could not find path"}
-
-    distancetime_result = gmaps.distance_matrix(start, end, mode="transit", departure_time=now, region='MY')
-
-    result = {}
-
-    path = directions_result[0]['overview_polyline']['points']
-    result['path'] = polyline.decode(path)
+    result = findPath(start, end)
 
     result['bounds'] = getBounds(result['path'])
-
-    row = distancetime_result['rows'][0]['elements'][0]
-    distance = row['distance']['text']
-    time = row['duration']['text']
-
-    result['distance'] = distance
-    result['time'] = time
 
     return result
 
