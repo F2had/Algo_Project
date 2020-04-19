@@ -7,7 +7,7 @@ from data.graph import MODE_WALKING, MODE_BUS, MODE_TRAIN
 app = Flask(__name__)
 
 
-def getBounds(test_path):
+def get_bounds(test_path):
     north = -180
     west = 180
     east = -180
@@ -31,7 +31,7 @@ def getBounds(test_path):
 def compute_path(start, end):
     result = findPath(start, end)
 
-    result['bounds'] = getBounds(result['path'])
+    result['bounds'] = get_bounds(result['path'])
 
     return result
 
@@ -49,8 +49,8 @@ def graphdata():
             return
         visited.append(point.name)
         for connection in point.connections:
-            paths.append([point, connection[0], connection[1]])
-            add_connections(connection[0])
+            paths.append([connection.from_point, connection.to_point, connection.transit])
+            add_connections(connection.to_point)
 
     for point_n, point in database.points.items():
         add_connections(point)
@@ -63,7 +63,7 @@ def graphdata():
         flat_path.append(path[1])
         path[2] = modesNames[path[2]]
         paths[i] = path
-    return jsonify({"paths": paths, "bounds": getBounds(flat_path)})
+    return jsonify({"paths": paths, "bounds": get_bounds(flat_path)})
 
 
 @app.route("/", methods=['POST', 'GET'])

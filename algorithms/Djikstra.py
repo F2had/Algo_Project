@@ -1,20 +1,7 @@
 from math import inf
 
-# TODO: use cache for distance and time as well
-import googlemaps
 
-from data.database import points, MODE_WALKING
-
-__client = googlemaps.Client(key='AIzaSyApye8aayb20yXZkHybB3XEvO1bvgfDy3w')
-
-
-def getTime(from_p, to_p, method):
-    result = __client.distance_matrix(from_p, to_p, mode='walking' if method == MODE_WALKING else 'transit',
-                                      region='MY')
-
-    time = result['rows'][0]['elements'][0]['duration']['value']
-    return time
-
+from data.database import points
 
 def findPath(start_name, end_name):
     # make sure the arguments are in the database
@@ -25,7 +12,6 @@ def findPath(start_name, end_name):
     prev = {point_n: None for point_n in points.keys()}
 
     time = {point_n: inf for point_n in points.keys()}
-    # TODO: use the distance or display it.
     distance = {point_n: inf for point_n in points.keys()}
 
     # the first point does not have previous and distance and time to itself is 0
@@ -40,14 +26,13 @@ def findPath(start_name, end_name):
 
         visited.append(current_point.name)
 
-        # TODO: use connections object instead of tuple
         for connection in current_point.connections:
-            if not connection[0].name in visited:
-                time_between = getTime((current_point.lat, current_point.lon),
-                                       (connection[0].lat, connection[0].lon), connection[1])
-                if time[current_point.name] + time_between <= time[connection[0].name]:
-                    time[connection[0].name] = time[current_point.name] + time_between
-                    prev[connection[0].name] = current_point.name
+            if not connection.to_point.name in visited:
+                time_between = connection.time
+                if time[current_point.name] + time_between <= time[connection.to_point.name]:
+                    time[connection.to_point.name] = time[current_point.name] + time_between
+                    distance[connection.to_point.name] = distance[current_point.name] + connection.distance
+                    prev[connection.to_point.name] = current_point.name
 
     if prev[end_name] == -1:
         # TODO: replace with actual working error handling
@@ -62,8 +47,9 @@ def findPath(start_name, end_name):
         path.insert(0, (points[u].lat, points[u].lon))
 
     # for now distance is -1, because if it was left as infinity it will make an error in JS
-    return {'path': path, 'time': time[end_name], 'distance': -1}
+    return {'path': path, 'time': time[end_name], 'distance': distance[end_name]}
 
 
 if __name__ == '__main__':
+    # for testing
     findPath('Masjid Al-Husna', 'Pantai Hill Park')
