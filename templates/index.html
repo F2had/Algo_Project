@@ -5,17 +5,32 @@
     <meta charset="UTF-8">
     <title>Al-Khwarizmi</title>
     <link rel="icon" href="https://researchpedia.info/wp-content/uploads/2014/04/04-khawarizmi.jpg">
-    <link href="https://fonts.googleapis.com/css?family=Comic+Neue&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css2?family=Lato&family=Ubuntu&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <script src="https://kit.fontawesome.com/780e1570e3.js" crossorigin="anonymous"></script>
+   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
 
 </head>
 
 <body onload="hideLoader()">
 
-<div id="loader"></div>
+<div id="loader">
+   <div id="fountainTextG">
+       <div id="fountainTextG_1" class="fountainTextG">A</div>
+       <div id="fountainTextG_2" class="fountainTextG">l</div>
+       <div id="fountainTextG_3" class="fountainTextG">-</div>
+       <div id="fountainTextG_4" class="fountainTextG">K</div>
+       <div id="fountainTextG_5" class="fountainTextG">h</div>
+       <div id="fountainTextG_6" class="fountainTextG">w</div>
+       <div id="fountainTextG_7" class="fountainTextG">a</div>
+       <div id="fountainTextG_8" class="fountainTextG">r</div>
+       <div id="fountainTextG_9" class="fountainTextG">i</div>
+       <div id="fountainTextG_10" class="fountainTextG">z</div>
+       <div id="fountainTextG_11" class="fountainTextG">m</div>
+       <div id="fountainTextG_12" class="fountainTextG">i</div>
+   </div>
+</div>
 <div id="time-distance-card" style="display: none;">
     <div id="time"> Time:</div>
     <div id="distance">Distance:</div>
@@ -53,7 +68,7 @@
                     </div>
 
                     <div class="col-md-4">
-                        <button type="submit" class="btn btn-lg btn-outline-light ">GO</button>
+                        <button type="submit" class="btn btn-md btn-outline-light go-btn mb-1">GO</button>
                     </div>
 
                     <div class="col-md-4">
@@ -63,9 +78,9 @@
 
 
                     <div class="row">
-                        <div class="col-sm-12" style="color: #6495ED">WALKING</div>
-                        <div class="col-sm-12" style="color: #ed896b">BUS</div>
-                        <div class="col-sm-12" style="color: #52ff32">TRAIN</div>
+                        <div class="col-sm-12" style="color: #6495ED"><i class="las la-walking"></i> WALKING</div>
+                        <div class="col-sm-12" style="color: #ed896b"><i class="las la-bus"></i> BUS</div>
+                        <div class="col-sm-12" style="color: #52ff32"><i class="las la-train"></i> TRAIN</div>
                     </div>
 
                 </div>
@@ -105,7 +120,7 @@
             <div class="col-md-12 py-3">
 
                 <a href="https://github.com/F2had/Algo_Project" target="_blank"><i
-                        class="fab fa-github mr-md-5 mr-3 fa-2x  text-white"> </i></a>
+                        class="la la-github mr-md-5 mr-3 la-2x  text-white"> </i></a>
 
             </div>
 
