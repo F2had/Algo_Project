@@ -38,7 +38,7 @@ if path.isfile('cache_points'):
 # only build points that are not present in the cache
 with open('cache_points', 'w') as cache_file:
     for point_n in points_names:
-        if not point_n in points:
+        if point_n not in points:
             latlon = list(get_latlon(point_n))
             points[point_n] = GraphPoint(point_n, latlon[0], latlon[1])
             print(f'geocode: {point_n}')

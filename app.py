@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 
-from algorithms.Djikstra import findPath
+from algorithms.Djikstra import find_path
 from data import database
 from data.graph import MODE_WALKING, MODE_BUS, MODE_TRAIN
 
@@ -29,7 +29,7 @@ def get_bounds(test_path):
 
 
 def compute_path(start, end):
-    result = findPath(start, end)
+    result = find_path(start, end)
 
     result['bounds'] = get_bounds(result['path'])
 
@@ -42,7 +42,7 @@ def graphdata():
     visited = []
     flat_path = []
 
-    modesNames = {MODE_WALKING: "walking", MODE_BUS: "bus", MODE_TRAIN: "train"}
+    modes_names = {MODE_WALKING: "walking", MODE_BUS: "bus", MODE_TRAIN: "train"}
 
     def add_connections(point):
         if point.name in visited:
@@ -61,7 +61,7 @@ def graphdata():
         path[1] = (path[1].lat, path[1].lon)
         flat_path.append(path[0])
         flat_path.append(path[1])
-        path[2] = modesNames[path[2]]
+        path[2] = modes_names[path[2]]
         paths[i] = path
     return jsonify({"paths": paths, "bounds": get_bounds(flat_path)})
 

@@ -1,9 +1,9 @@
 from math import inf
 
-
 from data.database import points
 
-def findPath(start_name, end_name):
+
+def find_path(start_name, end_name):
     # make sure the arguments are in the database
     assert start_name in points and end_name in points, "These points does not exist in our database"
 
@@ -52,4 +52,4 @@ def findPath(start_name, end_name):
 
 if __name__ == '__main__':
     # for testing
-    findPath('Masjid Al-Husna', 'Pantai Hill Park')
+    find_path('Masjid Al-Husna', 'Pantai Hill Park')
