@@ -3,6 +3,48 @@ from math import inf
 from data.database import points
 
 
+def find_all_paths(start_name, end_name, limit=None):
+    assert start_name in points and end_name in points, "These points does not exist in our database"
+
+    point_from = points[start_name]
+    point_to = points[end_name]
+
+    visited = []
+    path = [(point_from, 0, 0)]
+    paths = []
+
+    def inner(point_from):
+        # Mark the current node as visited
+        visited.append(point_from.name)
+
+        if point_from.name == point_to.name:
+            paths.append(list(path))
+        else:
+            # If current vertex is not destination
+            # Recur for all the vertices adjacent to this vertex
+            for connection in point_from.connections:
+                if connection.to_point.name not in visited:
+                    path.append((connection.to_point, connection.time, connection.distance))
+                    inner(connection.to_point)
+
+        # back tracking
+        path.pop()
+        visited.remove(point_from.name)
+
+    inner(point_from)
+
+    # cleaning
+    paths = [list(zip(*x)) for x in paths]
+    paths = [{'path': [y.position() for y in x[0]], 'time': sum(x[1]), 'distance': sum(x[2])} for x in paths]
+
+    # sort using time first
+    paths.sort(key=lambda x: (x['time'], x['distance']))
+
+    limit = len(paths) if None or type(limit) != int or limit > len(paths) else limit
+
+    return paths[:limit]
+
+
 def find_path(start_name, end_name):
     # make sure the arguments are in the database
     assert start_name in points and end_name in points, "These points does not exist in our database"
@@ -27,7 +69,7 @@ def find_path(start_name, end_name):
         visited.append(current_point.name)
 
         for connection in current_point.connections:
-            if not connection.to_point.name in visited:
+            if connection.to_point.name not in visited:
                 time_between = connection.time
                 if time[current_point.name] + time_between <= time[connection.to_point.name]:
                     time[connection.to_point.name] = time[current_point.name] + time_between
@@ -52,4 +94,5 @@ def find_path(start_name, end_name):
 
 if __name__ == '__main__':
     # for testing
-    find_path('Masjid Al-Husna', 'Pantai Hill Park')
+    print(find_path('Masjid Al-Husna', 'Pantai Hill Park'))
+    print(find_all_paths('Masjid Al-Husna', 'Pantai Hill Park'))
