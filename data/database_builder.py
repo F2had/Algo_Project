@@ -1,19 +1,24 @@
 # This file has helping functions for building the database
 
 import googlemaps
+import geopy
 
 __gmaps = googlemaps.Client(key='AIzaSyApye8aayb20yXZkHybB3XEvO1bvgfDy3w')
-
+nominatim = geopy.Nominatim(user_agent="my-application")
 
 def get_latlon(point):
-    result = __gmaps.geocode(point)
+    # result_ = __gmaps.geocode(point, region='MY')
+
+    print(point)
+    result = nominatim.geocode(point, country_codes=['MY'])
+
     if not result:
         # result not found
         return None
 
     print('geocode api used')
 
-    return result[0]['geometry']['location'].values()
+    return (result.latitude, result.longitude)
 
 
 def get_time_distance(from_p, to_p, method):

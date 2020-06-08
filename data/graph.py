@@ -38,6 +38,7 @@ class ConnectionCacheHolder:
             if from_p not in self.connections:
                 self.connections[from_p] = []
             self.connections[from_p].append([to_p, transit, time, distance])
+            self.save_cache()
 
     def save_cache(self):
         with open(self.filename, 'w') as cache_file:
@@ -57,6 +58,7 @@ class GraphPointConnection:
             self.time = time
             self.distance = distance
         else:
+            print(self.from_point.name, "....", self.to_point.name)
             self.time, self.distance = get_time_distance(self.from_point.position(), self.to_point.position(),
                                                          self.transit)
             print(f'time_distance: {from_point.name} => {to_point.name}')

@@ -13,7 +13,7 @@ points_names = [
     'Kuala Lumpur International Airport',
 
     'Masjid Al-Husna',
-    'LRT Asia Jaya',
+    'Asia Jaya Station',
     'Ppum Federal',
     'KL 1102 Masjid Ar-Rahman UM',
     'Lrt Station Universiti',
@@ -61,8 +61,8 @@ connect_points(points['Kuala Lumpur Station'], points['National Mosque of Malays
 connect_points(points['National Mosque of Malaysia'], points['Kuala Lumpur City Centre'], MODE_WALKING, cache)
 
 # bus
-connect_points(points['Masjid Al-Husna'], points['LRT Asia Jaya'], MODE_BUS, cache)
-connect_points(points['LRT Asia Jaya'], points['Ppum Federal'], MODE_BUS, cache)
+connect_points(points['Masjid Al-Husna'], points['Asia Jaya Station'], MODE_BUS, cache)
+connect_points(points['Asia Jaya Station'], points['Ppum Federal'], MODE_BUS, cache)
 connect_points(points['Ppum Federal'], points['KL 1102 Masjid Ar-Rahman UM'], MODE_BUS, cache)
 
 connect_points(points['UM CENTRAL'], points['Lrt Station Universiti'], MODE_BUS, cache)
@@ -76,7 +76,7 @@ connect_points(points['KL Sentral'], points['Kuala Lumpur Station'], MODE_BUS, c
 connect_points(points['Kuala Lumpur City Centre'], points['Menara Kuala Lumpur'], MODE_BUS, cache)
 
 # LRT train
-connect_points(points['LRT Asia Jaya'], points['Lrt Station Universiti'], MODE_TRAIN, cache)
+connect_points(points['Asia Jaya Station'], points['Lrt Station Universiti'], MODE_TRAIN, cache)
 connect_points(points['Lrt Station Universiti'], points['LRT Kerinchi'], MODE_TRAIN, cache)
 connect_points(points['LRT Kerinchi'], points['LRT Abdullah Hukum'], MODE_TRAIN, cache)
 connect_points(points['LRT Abdullah Hukum'], points['KL Sentral'], MODE_TRAIN, cache)
