@@ -72,11 +72,15 @@ def root():
         start = request.form['start']
         end = request.form['end']
 
-        if start and end:
-            result = compute_path(start, end)
-            return jsonify({'data': result})
+        try:
+            if start and end:
+                result = compute_path(start, end)
+                return jsonify({'data': result})
 
-        return jsonify({'error': 'Missing input!'})
+            return jsonify({'error': 'Missing input!'})
+
+        except AssertionError as e:
+            return jsonify({'error': str(e)})
     else:
         return render_template("index.html", locations=database.points_names)
 
