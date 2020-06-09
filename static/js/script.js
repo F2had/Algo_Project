@@ -56,9 +56,12 @@ function initMap() {
     });
 
     let card = document.getElementById("time-distance-card");
+    let options =  document.getElementById("options");
+     let route =  document.getElementById("route");
 
     map.controls[google.maps.ControlPosition.LEFT_TOP].push(card);
-
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(options);
+    map.controls[google.maps.ControlPosition.LEFT_TOP].push(route);
 }
 
 
