@@ -1,26 +1,3 @@
-import urllib.request
-import ssl
-from bs4 import BeautifulSoup
-
-
-
-
-#this method is extracting the stop words from one of website
-def stopwords():
-    ssl._create_default_https_context = ssl._create_unverified_context
-    url = 'https://www.ranks.nl/stopwords'
-    stopword=[]
-    response=urllib.request.urlopen(url)
-    html = response.read()
-    soup=BeautifulSoup(html)
-    tlist=soup.find_all('td')
-
-    for tr in tlist:
-        info=tr.stripped_strings
-        for t in info:
-            stopword.append(t)
-    return stopword
-
 
 # Given a text string, remove all non-alphanumeric
 # characters (using Unicode definition of alphanumeric).
@@ -29,7 +6,6 @@ def stripNonAlphaNum(text):
     import re
     text=re.findall('[a-zA-Z]+',text)
     return text
-
 
 
 def wordListToFreqDict(wordlist):
@@ -41,15 +17,6 @@ def sortFreqDict(freqdic):
     aux.sort()
     aux.reverse()
     return aux
-
-def removeStopWord(wordList,stopwords):
-    for st in stopwords:
-        result=Rabin_Karp_Matcher(wordList,st,256,11)
-        for s in result:
-            del wordList[result[s]]
-
-    return wordList
-
 
 
 def Rabin_Karp_Matcher(text, pattern, d, q):
@@ -78,5 +45,20 @@ def Rabin_Karp_Matcher(text, pattern, d, q):
                 t = (t + q) % q  # make sure that t >= 0
         return result
 
-def remove(wordlist, stopwords):
-    return [w for w in wordlist if w not in stopwords]
+
+def text_stopwords(text,stopwords):
+    text_stopwords=[]
+    for st in stopwords:
+        result=Rabin_Karp_Matcher(text,st,256,101)
+        if len(result)!=0:
+            text_stopwords.append(text[result[0]:result[0] + len(st)])
+
+
+    return text_stopwords
+
+
+def remove(wordlist, text_stopwords):
+    return [w for w in wordlist if w not in text_stopwords]
+
+
+
