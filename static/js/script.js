@@ -100,10 +100,16 @@ function drawPath(data) {
 
     // remove all children before adding directions
     $('#directions_holder > *').remove();
-    data.directions.forEach(point_name => {
-        $('#directions_holder').append(
-            `<p class=\"card-text\">${point_name}</p>`
-        );
+    data.directions.forEach((point_connection, i) => {
+        if(i === 0) {
+            $('#directions_holder').append(
+                `<p class=\"card-text\">start from <strong>${point_connection[0]}</strong></p>`
+            );
+        } else {
+             $('#directions_holder').append(
+                `<p class=\"card-text\">go to <strong>${point_connection[0]}</strong> using <strong>${data.directions[i - 1][1]}</strong></p>`
+            );
+        }
     });
     $('#route').show();
 

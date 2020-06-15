@@ -7,6 +7,16 @@ MODE_TRAIN = 0
 MODE_BUS = 1
 MODE_WALKING = 2
 
+def convert_mode_to_modename(mode):
+    try:
+        return {
+            0: "train",
+            1: "bus",
+            2: "walking",
+        }[mode]
+    except:
+        return "NONE"
+
 
 class ConnectionCacheHolder:
     def __init__(self, filename):

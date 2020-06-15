@@ -1,6 +1,7 @@
 from math import inf
 
 from data.database import points
+from data.graph import convert_mode_to_modename
 
 
 def find_all_paths(start_name, end_name, limit=None):
@@ -51,14 +52,14 @@ def find_path(start_name, end_name):
 
     # initialize the values
     visited = []
-    prev = {point_n: None for point_n in points.keys()}
+    connection_prev = {point_n: None for point_n in points.keys()}
 
     time = {point_n: inf for point_n in points.keys()}
     distance = {point_n: inf for point_n in points.keys()}
 
     # the first point does not have previous and distance and time to itself is 0
     time[start_name] = distance[start_name] = 0
-    prev[start_name] = None
+    connection_prev[start_name] = None
 
     # go through all points in the database
     for _ in range(len(points)):
@@ -74,23 +75,25 @@ def find_path(start_name, end_name):
                 if time[current_point.name] + time_between <= time[connection.to_point.name]:
                     time[connection.to_point.name] = time[current_point.name] + time_between
                     distance[connection.to_point.name] = distance[current_point.name] + connection.distance
-                    prev[connection.to_point.name] = current_point.name
+                    connection_prev[connection.to_point.name] = connection
 
-    if prev[end_name] == -1:
+    if connection_prev[end_name] == -1:
         # TODO: replace with actual working error handling
         raise Exception(f'No path found from {start_name} to {end_name}')
     path = []
     points_on_way = []
 
     u = end_name
+    u_point = points[u]
     path.append((points[u].lat, points[u].lon))
-    points_on_way.append(u)
+    points_on_way.append((u, convert_mode_to_modename(connection_prev[u].transit)))
 
 
-    while prev[u]:
-        u = prev[u]
-        path.insert(0, (points[u].lat, points[u].lon))
-        points_on_way.insert(0, u)
+    while connection_prev[u_point.name]:
+        u = connection_prev[u_point.name]
+        u_point = u.from_point
+        path.insert(0, (u_point.lat, u_point.lon))
+        points_on_way.insert(0, (u_point.name, convert_mode_to_modename(u.transit)))
 
     # for now distance is -1, because if it was left as infinity it will make an error in JS
     return {'path': path, 'directions': points_on_way, 'time': time[end_name], 'distance': distance[end_name]}
