@@ -5,22 +5,23 @@
     <meta charset="UTF-8">
     <title>Al-Khwarizmi</title>
     <link rel="icon" href="https://researchpedia.info/wp-content/uploads/2014/04/04-khawarizmi.jpg">
-   <link href="https://fonts.googleapis.com/css2?family=Lato&family=Ubuntu&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Ubuntu&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet"
+          href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
 
 </head>
 
 <body onload="hideLoader()">
 
 <div id="loader">
-   <div id="fountainTextG">
-       {% for  v in "Al-Khwarizmi" %}
-           <div id="fountainTextG_{{ loop.index }}" class="fountainTextG">{{ v }}</div>
-       {% endfor %}
-   </div>
+    <div id="fountainTextG">
+        {% for  v in "Al-Khwarizmi" %}
+            <div id="fountainTextG_{{ loop.index }}" class="fountainTextG">{{ v }}</div>
+        {% endfor %}
+    </div>
 </div>
 
 <div id="options">
@@ -67,99 +68,80 @@
     </div>
 
 </div>
-
-<div class="card" id="route">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <div class="scrollable">
-      <p class="card-text">First  </p>
-      <hr>
-      <p class="card-text">Second go </p>
-      <hr>
-      <p class="card-text">Will add later depends on route brr</p>
-      <hr>
-      <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-      </p>
-        <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-      </p>
-        <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-      </p>
-        <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-      </p>
-      <hr>
-       <p class="card-text">Also we can scroll
-      </p>
+{# This will be displayed from script.js side#}
+<div class="card" id="route" style="display: none; text-align: left;">
+    <div class="card-body">
+        <h5 class="card-title">Directions</h5>
+        <div class="scrollable" id="directions_holder">
+        </div>
     </div>
-  </div>
 </div>
-
-<div id="time-distance-card" style="display: none;">
-    <div id="time"> Time:</div>1
+<div id="time-distance-card" style="display: none; text-align: left;">
+    <div id="time"> Time:</div>
     <div id="distance">Distance:</div>
 </div>
 
-    <div class="navbar navbar-dark bg-dark text-white">
+<div class="navbar navbar-dark bg-dark text-white">
 
-        <a href="#header" class="navbar-brand"><img id="logo"
-                                                    src="https://researchpedia.info/wp-content/uploads/2014/04/04-khawarizmi.jpg"
-                                                    width="30" height="30" alt=""> Al-Khwarizmi</a>
+    <a href="#header" class="navbar-brand"><img id="logo"
+                                                src="https://researchpedia.info/wp-content/uploads/2014/04/04-khawarizmi.jpg"
+                                                width="30" height="30" alt=""> Al-Khwarizmi</a>
 
-        {#Autocompelte input#}
+    {#Autocompelte input#}
 
-        <section class="text-center container text-left" id="">
+    <section class="text-center container text-left" id="">
 
-            {# Input#}
+        {# Input#}
 
-            <form action="" id="myForm" name="myForm" method="post">
+        <form action="" id="myForm" name="myForm" method="post">
 
-                <div class="row">
+            <div class="row">
 
-                    <div class="col-md-4">
-                        <div id="pac-container" class="form-group">
+                <div class="col-md-4">
+                    <div id="pac-container" class="form-group">
 
-                            <input id="pac-input" list="" name="start" type="text" class="form-control mx-2"
-                                   placeholder="From">
+                        <input id="pac-input" list="" name="start" type="text" class="form-control mx-2"
+                               placeholder="From">
 
-                        </div>
                     </div>
+                </div>
 
-                    <div class="col-md-4">
-                        <div id="pac-container2" class="form-group">
-                            <input id="pac-input2" list="" name="end" type="text" class="form-control mx-2" placeholder="To">
-                        </div>
+                <div class="col-md-4">
+                    <div id="pac-container2" class="form-group">
+                        <input id="pac-input2" list="" name="end" type="text" class="form-control mx-2"
+                               placeholder="To">
                     </div>
+                </div>
 
-                    <div class="col-md-4">
-                        <button type="submit" class="btn btn-md btn-outline-light go-btn mb-1">GO</button>
-                    </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-md btn-outline-light go-btn mb-1">GO</button>
+                </div>
 
-                    <div class="col-md-4">
-                         <button id="getDatabaseBtn" class="btn btn-sm btn-outline-light">Get DB Connections</button>
-                    </div>
-
-
-
-                    <div class="row">
-                        <div class="col-sm-12" style="color: #6495ED"><i class="las la-walking"></i> WALKING</div>
-                        <div class="col-sm-12" style="color: #ed896b"><i class="las la-bus"></i> BUS</div>
-                        <div class="col-sm-12" style="color: #52ff32"><i class="las la-train"></i> TRAIN</div>
-                    </div>
-
+                <div class="col-md-4">
+                    <button id="getDatabaseBtn" class="btn btn-sm btn-outline-light">Get DB Connections</button>
                 </div>
 
 
-            </form>
+                <div class="row">
+                    <div class="col-sm-12" style="color: #6495ED"><i class="las la-walking"></i> WALKING</div>
+                    <div class="col-sm-12" style="color: #ed896b"><i class="las la-bus"></i> BUS</div>
+                    <div class="col-sm-12" style="color: #52ff32"><i class="las la-train"></i> TRAIN</div>
+                </div>
 
-        </section>
-    </div>
+            </div>
 
-    {# Data-List for locations #}
-    <datalist id="locations">
-        {% for loc_name in locations %}
-            <option value="{{ loc_name }}"></option>
-        {% endfor %}
-    </datalist>
 
+        </form>
+
+    </section>
+</div>
+
+{# Data-List for locations #}
+<datalist id="locations">
+    {% for loc_name in locations %}
+        <option value="{{ loc_name }}"></option>
+    {% endfor %}
+</datalist>
 
 
 {# Map#}

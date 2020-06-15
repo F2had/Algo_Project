@@ -80,16 +80,20 @@ def find_path(start_name, end_name):
         # TODO: replace with actual working error handling
         raise Exception(f'No path found from {start_name} to {end_name}')
     path = []
+    points_on_way = []
 
     u = end_name
     path.append((points[u].lat, points[u].lon))
+    points_on_way.append(u)
+
 
     while prev[u]:
         u = prev[u]
         path.insert(0, (points[u].lat, points[u].lon))
+        points_on_way.insert(0, u)
 
     # for now distance is -1, because if it was left as infinity it will make an error in JS
-    return {'path': path, 'time': time[end_name], 'distance': distance[end_name]}
+    return {'path': path, 'directions': points_on_way, 'time': time[end_name], 'distance': distance[end_name]}
 
 
 if __name__ == '__main__':

@@ -97,6 +97,16 @@ function drawPath(data) {
     $('#distance').text(`Distance: ${distance}`);
     $('#time').text(`Time: ${time}`);
     $('#time-distance-card').css("display", "block");
+
+    // remove all children before adding directions
+    $('#directions_holder > *').remove();
+    data.directions.forEach(point_name => {
+        $('#directions_holder').append(
+            `<p class=\"card-text\">${point_name}</p>`
+        );
+    });
+    $('#route').show();
+
 }
 
 function drawDatabasePath(data) {
