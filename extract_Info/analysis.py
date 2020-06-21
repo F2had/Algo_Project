@@ -87,11 +87,11 @@ class Analysis():
         positiveText = re.sub('[,-]', '', positiveFile).split()
 
         for n in negativeText:
-            result = st.Rabin_Karp_Matcher(text, n, 256, 101)
+            result = st.Boyer_Moore_Matcher(text, n)
             self.pos += len(result)
 
         for p in positiveText:
-            result = st.Rabin_Karp_Matcher(text, p, 256, 101)
+            result = st.Boyer_Moore_Matcher(text, p)
             self.neg += len(result)
 
         self.neutral = self.article_len - (self.pos + self.neg)

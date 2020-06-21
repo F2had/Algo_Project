@@ -18,38 +18,83 @@ def sortFreqDict(freqdic):
     aux.reverse()
     return aux
 
+def badCharHeuristic(string, size):
+    '''
+    The preprocessing function for
+    Boyer Moore's bad character heuristic
+    '''
 
-def Rabin_Karp_Matcher(text, pattern, d, q):
-        n = len(text)
+    # Initialize all occurrence as -1
+    badChar = [-1] * 25600
+
+    # Fill the actual value of last occurrence
+    for i in range(size):
+        badChar[ord(string[i])] = i
+
+        # retun initialized list
+    return badChar
+
+def Boyer_Moore_Matcher(text, pattern):
+        '''
+        A pattern searching function that uses Bad Character
+        Heuristic of Boyer Moore Algorithm
+        '''
         m = len(pattern)
-        h = pow(d, m - 1) % q
-        p = 0
-        t = 0
-        result = []
-        for i in range(m):
-            p = (d * p + ord(pattern[i])) % q
-            t = (d * t + ord(text[i])) % q
+        n = len(text)
 
-        for s in range(n - m + 1):
-            if p == t:
-                match = True
-                for i in range(m):
-                    if pattern[i] != text[s + i]:
-                        match = False
-                        break
-                if match:
-                    result = result + [s]
-            if s < n - m:
-                t = (t - h * ord(text[s])) % q  # remove letter s
-                t = (t * d + ord(text[s + m])) % q  # add letter s+m
-                t = (t + q) % q  # make sure that t >= 0
+        # create the bad character list by calling
+        # the preprocessing function badCharHeuristic()
+        # for given pattern
+        badChar = badCharHeuristic(pattern, m)
+
+        # s is shift of the pattern with respect to text
+        s = 0
+        result = []
+        while (s <= n - m):
+            j = m - 1
+
+            # Keep reducing index j of pattern while
+            # characters of pattern and text are matching
+            # at this shift s
+            while j >= 0 and pattern[j] == text[s + j]:
+                j -= 1
+
+            # If the pattern is present at current shift,
+            # then index j will become -1 after the above loop
+            if j < 0:
+                result.append(s)
+
+                '''     
+                    Shift the pattern so that the next character in text 
+                          aligns with the last occurrence of it in pattern. 
+                    The condition s+m < n is necessary for the case when 
+                       pattern occurs at the end of text 
+                   '''
+                chara = ord(text[s + j])
+                # if chara > 256:
+                #     chara = 0
+                s += (m - badChar[chara] if s + m < n else 1)
+            else:
+                ''' 
+                   Shift the pattern so that the bad character in text 
+                   aligns with the last occurrence of it in pattern. The 
+                   max function is used to make sure that we get a positive 
+                   shift. We may get a negative shift if the last occurrence 
+                   of bad character in pattern is on the right side of the 
+                   current character. 
+                '''
+                chara = ord(text[s + j])
+                # if chara > 256:
+                #     chara = 0
+                s += max(1, j - badChar[chara])
+
         return result
 
 
 def text_stopwords(text,stopwords):
     text_stopwords=[]
     for st in stopwords:
-        result=Rabin_Karp_Matcher(text,st,256,101)
+        result=Boyer_Moore_Matcher(text, st)
         if len(result)!=0:
             text_stopwords.append(text[result[0]:result[0] + len(st)])
 
