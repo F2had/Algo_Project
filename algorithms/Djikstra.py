@@ -11,7 +11,7 @@ def find_all_paths(start_name, end_name, limit=None):
     point_to = points[end_name]
 
     visited = []
-    path = [(point_from, 0, 0)]
+    path = [(point_from, -1, 0, 0)]
     paths = []
 
     def inner(point_from):
@@ -25,7 +25,7 @@ def find_all_paths(start_name, end_name, limit=None):
             # Recur for all the vertices adjacent to this vertex
             for connection in point_from.connections:
                 if connection.to_point.name not in visited:
-                    path.append((connection.to_point, connection.time, connection.distance))
+                    path.append((connection.to_point, connection.transit, connection.time, connection.distance))
                     inner(connection.to_point)
 
         # back tracking
@@ -33,10 +33,16 @@ def find_all_paths(start_name, end_name, limit=None):
         visited.remove(point_from.name)
 
     inner(point_from)
+    # pprint(paths[0])
 
     # cleaning
     paths = [list(zip(*x)) for x in paths]
-    paths = [{'path': [y.position() for y in x[0]], 'time': sum(x[1]), 'distance': sum(x[2])} for x in paths]
+
+    # pprint(paths[0])
+    paths = [{'path': [y.position() for y in path[0]],
+              'directions': [(x[0].name, convert_mode_to_modename(x[1]), x[2], x[3]) for x in zip(*path)],
+              'time': sum(path[2]),
+              'distance': sum(path[3])} for path in paths]
 
     # sort using time first
     paths.sort(key=lambda x: (x['time'], x['distance']))
@@ -86,14 +92,16 @@ def find_path(start_name, end_name):
     u = end_name
     u_point = points[u]
     path.append((points[u].lat, points[u].lon))
-    points_on_way.append((u, convert_mode_to_modename(connection_prev[u].transit)))
-
 
     while connection_prev[u_point.name]:
         u = connection_prev[u_point.name]
+        points_on_way.insert(0, (u_point.name, convert_mode_to_modename(u.transit), u.time, u.distance))
         u_point = u.from_point
         path.insert(0, (u_point.lat, u_point.lon))
-        points_on_way.insert(0, (u_point.name, convert_mode_to_modename(u.transit)))
+
+    points_on_way.insert(0, (start_name, convert_mode_to_modename(-1), 0, 0))
+
+    assert sum(list(zip(*points_on_way))[2]) == time[end_name]
 
     # for now distance is -1, because if it was left as infinity it will make an error in JS
     return {'path': path, 'directions': points_on_way, 'time': time[end_name], 'distance': distance[end_name]}

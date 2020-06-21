@@ -107,7 +107,7 @@ function drawPath(data) {
             );
         } else {
              $('#directions_holder').append(
-                `<p class=\"card-text\">go to <strong>${point_connection[0]}</strong> using <strong>${data.directions[i - 1][1]}</strong></p>`
+                `<p class=\"card-text\">go to <strong>${point_connection[0]}</strong> using <strong>${point_connection[1]}</strong></p>`
             );
         }
     });
