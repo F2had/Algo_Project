@@ -57,19 +57,12 @@ function initMap() {
 
     let card = document.getElementById("time-distance-card");
     let options =  document.getElementById("options");
-    let route =  document.getElementById("route");
-    let routes = $("#routes");
-    routes.hide();
-    let a = "amjad";
-  for (let i=0; i < a.length; i++){
-    routes.append('<div class="col-sm-1"><button class="btn btn-sm btn-primary">'+a[i]+'</button></div>');
-    }
-
+     let route =  document.getElementById("route");
 
     map.controls[google.maps.ControlPosition.LEFT_TOP].push(card);
     map.controls[google.maps.ControlPosition.TOP_CENTER].push(options);
     map.controls[google.maps.ControlPosition.LEFT_TOP].push(route);
-    }
+}
 
 
 function drawPath(data) {
@@ -119,7 +112,6 @@ function drawPath(data) {
         }
     });
     $('#route').show();
-     $("#routes").show();
 
 }
 
