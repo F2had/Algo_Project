@@ -14,7 +14,6 @@ $(document).ready(function () {
                     alert(data.error);
 
                 } else {
-                    console.log(data.data);
                     drawPath(data.data);
                 }
             });
@@ -68,7 +67,7 @@ function initMap() {
     }
 
 
-    map.controls[google.maps.ControlPosition.LEFT_TOP].push(card);
+//    map.controls[google.maps.ControlPosition.LEFT_TOP].push(card);
     map.controls[google.maps.ControlPosition.TOP_CENTER].push(options);
     map.controls[google.maps.ControlPosition.LEFT_TOP].push(route);
     }
@@ -129,12 +128,17 @@ function drawPath(data) {
     data.directions.forEach((point_connection, i) => {
         if(i === 0) {
             $('#directions_holder').append(
-                `<p class=\"card-text\">start from <strong>${point_connection[0]}</strong></p>`
+                `<li class=\"list-group-item\">Start from <strong>${point_connection[0]}</strong></li>`
+
             );
+
+
         } else {
              $('#directions_holder').append(
-                `<p class=\"card-text\">go to <strong>${point_connection[0]}</strong> using <strong>${point_connection[1]}</strong></p>`
+                `<li class=\"list-group-item\">Go to <strong>${point_connection[0]}</strong> using <strong>${point_connection[1]}</strong></li>`
+
             );
+
         }
     });
     $('#route').show();
@@ -145,7 +149,6 @@ function drawPath(data) {
 function drawDatabasePath(data) {
 
     let paths = data['paths'];
-    console.log(paths.length);
     // remove any path
     if (current_path) {
         current_path.setMap(null);
