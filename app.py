@@ -34,6 +34,8 @@ def compute_path(start, end):
 
     result = apply_sentiment(result)
 
+    result.sort(key=lambda x: (x['time'], x['distance']))
+
     for x in result:
         x['bounds'] = get_bounds(x['path'])
 
