@@ -12,9 +12,15 @@ $(document).ready(function () {
             .done(function (data) {
                 if (data.error) {
                     alert(data.error);
-
                 } else {
-                    drawPath(data.data);
+                    if (Array.isArray(data.data))
+                        current_data = data.data.slice(0, 12);
+                    else
+                        current_data = [data.data];
+
+                    current_data.forEach(e => console.log(e['time']))
+
+                    drawPaths(current_data);
                 }
             });
         event.preventDefault();
@@ -43,9 +49,9 @@ $(document).ready(function () {
 
 
 let map;
-let current_path;
 let polylines = [];
 let database_paths;
+let current_data;
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -60,28 +66,54 @@ function initMap() {
     let route = document.getElementById("route");
     let routes = $("#routes");
     routes.hide();
-    let a = "amjad";
-    for (let i = 0; i < a.length; i++) {
-        routes.append('<div class="col-sm-1"><button class="btn btn-sm btn-primary">' + a[i] + '</button></div>');
-    }
 
     map.controls[google.maps.ControlPosition.TOP_CENTER].push(options);
     map.controls[google.maps.ControlPosition.LEFT_TOP].push(route);
 }
 
 function convert_time_t_hours_minutes_string(time) {
-    let hours = Math.round(time / 60 / 60);
-    let mins = Math.round(time / 60) % 60;
+    let hours = Math.floor(time / 60 / 60);
+    let mins = Math.floor(time / 60) % 60;
 
     let s = "";
     if (hours > 0) {
         s += `${hours} h`;
         s += ' '
     }
+    if (mins < 10 && mins >= 0)
+        s += '0';
     s += `${mins} min`;
 
     return s;
 }
+
+function drawPaths(paths) {
+
+    let routes = $("#routes");
+
+    $('#routes > *').remove();
+
+    for (let i = 0; i < paths.length; i++) {
+        routes.append(`<div class="col-sm-1 mt-1"><button class="btn btn-sm btn-outline-dark w-100 h-100" onclick="select_path(${i}, this)">` +
+            `${convert_time_t_hours_minutes_string(paths[i]['time'])}</button></div>`);
+    }
+
+    if (paths.length > 0) {
+        select_path(0); // TODO: add object
+    }
+}
+
+function select_path(i, object) {
+    // we are in the current range
+    if (i < current_data.length) {
+        // reset to all primary
+        $('#routes > * > *').removeClass("active");
+
+        $(object).addClass('active');
+        drawPath(current_data[i]);
+    }
+}
+
 
 function drawPath(data) {
     // if points are null or undefined

@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 
-from algorithms.Djikstra import find_path
+from algorithms.Djikstra import find_path, find_all_paths
 from algorithms.sentiment import apply_sentiment
 from data import database
 from data.graph import MODE_WALKING, MODE_BUS, MODE_TRAIN
@@ -30,11 +30,12 @@ def get_bounds(test_path):
 
 
 def compute_path(start, end):
-    result = find_path(start, end)
+    result = find_all_paths(start, end)
 
     result = apply_sentiment(result)
 
-    result['bounds'] = get_bounds(result['path'])
+    for x in result:
+        x['bounds'] = get_bounds(x['path'])
 
     return result
 

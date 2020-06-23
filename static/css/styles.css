@@ -286,3 +286,7 @@ padding-left: 0;
 .col {
     padding-right: 0!important;
 }
+
+.btn-outline-dark {
+	background-color: white;
+}

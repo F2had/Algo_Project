@@ -23,7 +23,7 @@ class Analysis():
 
     def run_analysis(self):
 
-        for num in range(1, 3 + 1):
+        for num in range(1, 1 + 1):
             file = path.dirname(__file__) + f'/articles/article{num}.txt'
 
             self.stopword = []
