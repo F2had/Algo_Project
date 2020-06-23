@@ -32,7 +32,7 @@ def get_bounds(test_path):
 def compute_path(start, end):
     result = find_path(start, end)
 
-    result = apply_sentiment(result)[0]
+    result = apply_sentiment(result)
 
     result['bounds'] = get_bounds(result['path'])
 

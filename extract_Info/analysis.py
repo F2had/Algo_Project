@@ -23,7 +23,9 @@ class Analysis():
 
     def run_analysis(self):
 
-        for url in self.articles_url:
+        for num in range(1, 3 + 1):
+            file = path.dirname(__file__) + f'/articles/article{num}.txt'
+
             self.stopword = []
             self.freq = []
             self.word = []
@@ -33,10 +35,10 @@ class Analysis():
             self.neutral = 0
             self.url_count += 1
             # request the article
-            response = urllib.request.urlopen(url)
-            html = response.read()
-            soup = BeautifulSoup(html, features='lxml')
-            text = soup.get_text(strip=True)
+
+            text = ""
+            with open(file, 'r') as f:
+                text = f.read()
 
             self.words_frequency(text)
             self.freq_graph()

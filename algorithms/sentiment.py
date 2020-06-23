@@ -1,7 +1,7 @@
 from extract_Info.analysis import Analysis
 
 
-def apply_sentiment(paths):
+def apply_sentiment(paths_arg):
     analysis = Analysis(debug=False)
     analysis.run_analysis()
 
@@ -9,8 +9,10 @@ def apply_sentiment(paths):
 
     # more than 30%
     if percentage > 0.3:
-        if isinstance(paths, dict):
-            paths = [paths]
+        if isinstance(paths_arg, dict):
+            paths = [paths_arg]
+        else:
+            paths = paths_arg
 
         new_paths = []
 
@@ -30,6 +32,9 @@ def apply_sentiment(paths):
 
             new_paths.append(new_path)
 
-        return new_paths
+        if isinstance(paths_arg, dict):
+            return new_paths[0]
+        else:
+            return new_paths
 
-    return paths
+    return paths_arg
