@@ -1,4 +1,5 @@
 from extract_Info.analysis import Analysis
+import math
 
 
 def apply_sentiment(paths_arg):
@@ -20,15 +21,16 @@ def apply_sentiment(paths_arg):
             new_time = 0
 
             for direction in path['directions']:
-                if direction[2] == 'bus':
-                    direction[3] *= 1.3
-                    new_time += direction[3]
-                elif direction[2] == 'walking':
-                    direction[3] *= 1.2
-                    new_time += direction[3]
+                new_time_segment = direction[2]
+                if direction[1] == 'bus':
+                    new_time_segment *= 1.3
+                elif direction[1] == 'walking':
+                    new_time_segment *= 1.2
+
+                new_time += new_time_segment
 
             new_path = dict(path)
-            new_path['time'] = new_time
+            new_path['time'] = round(new_time)
 
             new_paths.append(new_path)
 

@@ -98,6 +98,14 @@ function drawPath(data) {
              polylines[i].setMap(null);
        }
 
+    // delete database
+    if (database_paths) {
+        database_paths.forEach(e => {
+            e.setMap(null)
+        });
+        database_paths = null
+    }
+
     for(let i=0; i< maps_coords.length-1; i++){
         polylines[i] = new google.maps.Polyline({
         clickable: true,
@@ -129,31 +137,30 @@ function drawPath(data) {
         if(i === 0) {
             $('#directions_holder').append(
                 `<li class=\"list-group-item\">Start from <strong>${point_connection[0]}</strong></li>`
-
             );
-
-
         } else {
              $('#directions_holder').append(
                 `<li class=\"list-group-item\">Go to <strong>${point_connection[0]}</strong> using <strong>${point_connection[1]}</strong></li>`
-
             );
-
         }
     });
     $('#route').show();
-     $("#routes").show();
+    $("#routes").show();
 
 }
 
 function drawDatabasePath(data) {
 
     let paths = data['paths'];
+
+    $('#route').hide();
+    $("#routes").hide();
+
     // remove any path
-    if (current_path) {
-        current_path.setMap(null);
-        current_path = null
-    }
+    if (polylines)
+       for(let i=0; i <  polylines.length; i++){
+             polylines[i].setMap(null);
+       }
     if (database_paths) {
         database_paths.forEach(e => {
             e.setMap(null)
