@@ -56,22 +56,32 @@ function initMap() {
         zoom: 13
     });
 
-    let card = document.getElementById("time-distance-card");
-    let options =  document.getElementById("options");
-    let route =  document.getElementById("route");
+    let options = document.getElementById("options");
+    let route = document.getElementById("route");
     let routes = $("#routes");
     routes.hide();
     let a = "amjad";
-  for (let i=0; i < a.length; i++){
-    routes.append('<div class="col-sm-1"><button class="btn btn-sm btn-primary">'+a[i]+'</button></div>');
+    for (let i = 0; i < a.length; i++) {
+        routes.append('<div class="col-sm-1"><button class="btn btn-sm btn-primary">' + a[i] + '</button></div>');
     }
 
-
-//    map.controls[google.maps.ControlPosition.LEFT_TOP].push(card);
     map.controls[google.maps.ControlPosition.TOP_CENTER].push(options);
     map.controls[google.maps.ControlPosition.LEFT_TOP].push(route);
-    }
+}
 
+function convert_time_t_hours_minutes_string(time) {
+    let hours = Math.round(time / 60 / 60);
+    let mins = Math.round(time / 60) % 60;
+
+    let s = "";
+    if (hours > 0) {
+        s += `${hours} h`;
+        s += ' '
+    }
+    s += `${mins} min`;
+
+    return s;
+}
 
 function drawPath(data) {
     // if points are null or undefined
@@ -81,12 +91,12 @@ function drawPath(data) {
 
     let maps_coords = points.map(e => new google.maps.LatLng(e[0], e[1]));
 
-    var trans= [];
-    for(const mode in data.directions){
+    var trans = [];
+    for (const mode in data.directions) {
         trans[mode] = data.directions[mode][1];
     }
 
-     const mapColors = {
+    const mapColors = {
         "walking": "#6495ED",
         "bus": "#ed896b",
         "train": "#52ff32"
@@ -94,9 +104,9 @@ function drawPath(data) {
 
     // removing the old path from the map
     if (polylines)
-       for(let i=0; i <  polylines.length; i++){
-             polylines[i].setMap(null);
-       }
+        for (let i = 0; i < polylines.length; i++) {
+            polylines[i].setMap(null);
+        }
 
     // delete database
     if (database_paths) {
@@ -106,16 +116,16 @@ function drawPath(data) {
         database_paths = null
     }
 
-    for(let i=0; i< maps_coords.length-1; i++){
+    for (let i = 0; i < maps_coords.length - 1; i++) {
         polylines[i] = new google.maps.Polyline({
-        clickable: true,
-        geodesic: true,
-        path: [maps_coords[i], maps_coords[i+1]],
-        strokeColor: mapColors[trans[i+1]],
-        strokeOpacity: 1.000000,
-        strokeWeight: 10
-    });
-     polylines[i].setMap(map);
+            clickable: true,
+            geodesic: true,
+            path: [maps_coords[i], maps_coords[i + 1]],
+            strokeColor: mapColors[trans[i + 1]],
+            strokeOpacity: 1.000000,
+            strokeWeight: 10
+        });
+        polylines[i].setMap(map);
     }
 
     let bounds = new google.maps.LatLngBounds(
@@ -123,23 +133,21 @@ function drawPath(data) {
     map.fitBounds(bounds);
 
 
+    let distance = data.distance / 1000;
 
-    let time = data.time;
-    let distance = data.distance;
-
-    $('#distance').text(`Distance: ${distance}`);
-    $('#time').text(`Time: ${time}`);
+    $('#distance').text(`Distance: ${distance} KM`);
+    $('#time').text(`Time: ${convert_time_t_hours_minutes_string(data.time)}`);
     $('#time-distance-card').css("display", "block");
 
     // remove all children before adding directions
     $('#directions_holder > *').remove();
     data.directions.forEach((point_connection, i) => {
-        if(i === 0) {
+        if (i === 0) {
             $('#directions_holder').append(
                 `<li class=\"list-group-item\">Start from <strong>${point_connection[0]}</strong></li>`
             );
         } else {
-             $('#directions_holder').append(
+            $('#directions_holder').append(
                 `<li class=\"list-group-item\">Go to <strong>${point_connection[0]}</strong> using <strong>${point_connection[1]}</strong></li>`
             );
         }
@@ -158,9 +166,9 @@ function drawDatabasePath(data) {
 
     // remove any path
     if (polylines)
-       for(let i=0; i <  polylines.length; i++){
-             polylines[i].setMap(null);
-       }
+        for (let i = 0; i < polylines.length; i++) {
+            polylines[i].setMap(null);
+        }
     if (database_paths) {
         database_paths.forEach(e => {
             e.setMap(null)
