@@ -3,8 +3,13 @@
 import googlemaps
 import geopy
 
+MODE_TRAIN = 0
+MODE_BUS = 1
+MODE_WALKING = 2
+
 __gmaps = googlemaps.Client(key='AIzaSyApye8aayb20yXZkHybB3XEvO1bvgfDy3w')
 nominatim = geopy.Nominatim(user_agent="my-application")
+
 
 def get_latlon(point):
     # result_ = __gmaps.geocode(point, region='MY')
@@ -22,9 +27,15 @@ def get_latlon(point):
 
 
 def get_time_distance(from_p, to_p, method):
+    mode = ""
+    if method in [MODE_TRAIN, MODE_BUS]:
+        mode = "transit"
+    elif method == MODE_WALKING:
+        mode = "walking"
+    else:
+        mode = "driving"
     # FIXME: method 2 is walking, we can't import MODE_WALKING, because it would result in circular import
-    result = __gmaps.distance_matrix(from_p, to_p, mode='walking' if method == 2 else 'transit',
-                                     region='MY')
+    result = __gmaps.distance_matrix(from_p, to_p, mode=mode, region='MY')
 
     element = result['rows'][0]['elements'][0]
     time = element['duration']['value']
