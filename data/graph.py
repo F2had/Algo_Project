@@ -6,13 +6,15 @@ from data.database_builder import get_time_distance
 MODE_TRAIN = 0
 MODE_BUS = 1
 MODE_WALKING = 2
+MODE_CAR = 3
 
 def convert_mode_to_modename(mode):
     try:
         return {
-            0: "train",
-            1: "bus",
-            2: "walking",
+            0: "Train",
+            1: "Bus",
+            2: "Walking",
+            3: "Car",
         }[mode]
     except:
         return "NONE"
@@ -83,7 +85,7 @@ class GraphPoint:
 
     def connect(self, other, transit, is_one_way=False, cache=None):
         # make sure that the mode is valid
-        assert transit in [MODE_TRAIN, MODE_BUS, MODE_WALKING], "Please specify a valid mode of transit"
+        assert transit in [MODE_TRAIN, MODE_BUS, MODE_WALKING, MODE_CAR], "Please specify a valid mode of transit"
 
         connection = cache.get_time_distance(self.name, other.name, transit)
 

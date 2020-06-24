@@ -1,5 +1,5 @@
 from data.database_builder import get_latlon
-from data.graph import GraphPoint, connect_points, MODE_BUS, MODE_WALKING, MODE_TRAIN, ConnectionCacheHolder
+from data.graph import GraphPoint, connect_points, MODE_BUS, MODE_WALKING, MODE_TRAIN, MODE_CAR, ConnectionCacheHolder
 from os import path
 
 points_names = [
@@ -74,6 +74,21 @@ connect_points(points['Ppum Federal'], points['Mid Valley Megamall'], MODE_BUS, 
 connect_points(points['Mid Valley Megamall'], points['KL Sentral'], MODE_BUS, cache)
 connect_points(points['KL Sentral'], points['Kuala Lumpur Station'], MODE_BUS, cache)
 connect_points(points['Kuala Lumpur City Centre'], points['Menara Kuala Lumpur'], MODE_BUS, cache)
+
+# car
+connect_points(points['Masjid Al-Husna'], points['Asia Jaya Station'], MODE_CAR, cache)
+connect_points(points['Asia Jaya Station'], points['Ppum Federal'], MODE_CAR, cache)
+connect_points(points['Ppum Federal'], points['KL 1102 Masjid Ar-Rahman UM'], MODE_CAR, cache)
+
+connect_points(points['UM CENTRAL'], points['Lrt Station Universiti'], MODE_CAR, cache)
+connect_points(points['Lrt Station Universiti'], points['Mid Valley Megamall'], MODE_CAR, cache)
+connect_points(points['UM CENTRAL'], points['Pantai Hill Park'], MODE_CAR, cache)
+connect_points(points['Pantai Hill Park'], points['LRT Abdullah Hukum'], MODE_CAR, cache)
+
+connect_points(points['Ppum Federal'], points['Mid Valley Megamall'], MODE_CAR, cache)
+connect_points(points['Mid Valley Megamall'], points['KL Sentral'], MODE_CAR, cache)
+connect_points(points['KL Sentral'], points['Kuala Lumpur Station'], MODE_CAR, cache)
+connect_points(points['Kuala Lumpur City Centre'], points['Menara Kuala Lumpur'], MODE_CAR, cache)
 
 # LRT train
 connect_points(points['Asia Jaya Station'], points['Lrt Station Universiti'], MODE_TRAIN, cache)

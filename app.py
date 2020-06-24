@@ -48,7 +48,7 @@ def graphdata():
     visited = []
     flat_path = []
 
-    modes_names = {MODE_WALKING: "walking", MODE_BUS: "bus", MODE_TRAIN: "train"}
+    modes_names = {MODE_WALKING: "Walking", MODE_BUS: "Bus", MODE_TRAIN: "Train"}
 
     def add_connections(point):
         if point.name in visited:

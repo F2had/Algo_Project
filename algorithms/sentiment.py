@@ -22,9 +22,9 @@ def apply_sentiment(paths_arg):
 
             for direction in path['directions']:
                 new_time_segment = direction[2]
-                if direction[1] == 'bus':
+                if direction[1] == 'Bus' or direction[1] == 'Car':
                     new_time_segment *= 1.3
-                elif direction[1] == 'walking':
+                elif direction[1] == 'Walking':
                     new_time_segment *= 1.2
 
                 new_time += new_time_segment

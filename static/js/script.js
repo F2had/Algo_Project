@@ -129,9 +129,10 @@ function drawPath(data) {
     }
 
     const mapColors = {
-        "walking": "#6495ED",
-        "bus": "#ed896b",
-        "train": "#52ff32"
+        "Walking": "#6495ED",
+        "Bus": "#ed896b",
+        "Train": "#52ff32",
+        "Car": "#8a42f5"
     };
 
     // removing the old path from the map
@@ -180,7 +181,7 @@ function drawPath(data) {
             );
         } else {
             $('#directions_holder').append(
-                `<li class=\"list-group-item\">Go to <strong>${point_connection[0]}</strong> using <strong>${point_connection[1]}</strong></li>`
+                `<li class=\"list-group-item\">Go to <strong>${point_connection[0]}</strong> BY <strong>${point_connection[1]}</strong></li>`
             );
         }
     });
@@ -209,9 +210,10 @@ function drawDatabasePath(data) {
     }
 
     const mapColors = {
-        "walking": "#6495ED",
-        "bus": "#ed896b",
-        "train": "#52ff32"
+        "Walking": "#6495ED",
+        "Bus": "#ed896b",
+        "Train": "#52ff32",
+        "Car": "#8a42f5"
     };
 
     database_paths = paths.map(e => {
