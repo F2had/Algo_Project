@@ -1,5 +1,5 @@
-from .stopwords import *
-from .stopwords import text_stopwords as text_stop_words
+from extract_Info.stopwords import *
+from extract_Info.stopwords import text_stopwords as text_stop_words
 
 import re
 import urllib.request
