@@ -1,5 +1,5 @@
-from .stopwords import *
-from .stopwords import text_stopwords as text_stop_words
+from extract_Info.stopwords import *
+from extract_Info.stopwords import text_stopwords as text_stop_words
 
 import re
 import urllib.request
@@ -37,7 +37,7 @@ class Analysis():
             # request the article
 
             text = ""
-            with open(file, 'r') as f:
+            with open(file, 'r',encoding='utf-8' ) as f:
                 text = f.read()
 
             self.words_frequency(text)
