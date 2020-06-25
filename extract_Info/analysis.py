@@ -1,5 +1,5 @@
-from extract_Info.stopwords import *
-from extract_Info.stopwords import text_stopwords as text_stop_words
+from .stopwords import *
+from .stopwords import text_stopwords as text_stop_words
 
 import re
 import urllib.request
@@ -34,7 +34,6 @@ class Analysis():
             self.neg = 0
             self.neutral = 0
             self.url_count += 1
-            # request the article
 
             text = ""
             with open(file, 'r',encoding='utf-8' ) as f:
@@ -47,12 +46,27 @@ class Analysis():
             self.article_sentiment(text)
             self.senti_graph()
 
+
+
+
+
+    def extract_text(self):
+        # request the article
+        for url in self.articles_url:
+            response = urllib.request.urlopen(url)
+            html = response.read()
+            soup = BeautifulSoup(html, features='lxml')
+            text = soup.get_text(strip=True)
+
             with open(path.dirname(__file__) + '/articles/article{}.txt'.format(self.url_count), 'w', encoding='utf-8') as article:
                 for t in text:
                     article.write(t)
 
+
+
     # count article's words frequency
     def words_frequency(self, text):
+
         file = open(path.dirname(__file__) + "/articles/stopwords", encoding='utf-8')
         stopwords = file.read().lower().split()
 
