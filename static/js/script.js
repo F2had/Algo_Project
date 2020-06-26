@@ -18,8 +18,6 @@ $(document).ready(function () {
                     else
                         current_data = [data.data];
 
-                    current_data.forEach(e => console.log(e['time']))
-
                     drawPaths(current_data);
                 }
             });

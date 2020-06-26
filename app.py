@@ -1,20 +1,20 @@
 from flask import Flask, render_template, request, jsonify
 
-from algorithms.Djikstra import find_path, find_all_paths
+from algorithms.path_finding import find_path, find_all_paths
 from algorithms.sentiment import apply_sentiment
 from data import database
-from data.graph import MODE_WALKING, MODE_BUS, MODE_TRAIN
+from data.graph import MODE_WALKING, MODE_BUS, MODE_TRAIN, MODE_CAR
 
 app = Flask(__name__)
 
 
-def get_bounds(test_path):
+def get_bounds(path):
     north = -180
     west = 180
     east = -180
     south = 180
 
-    for point in test_path:
+    for point in path:
         if point[0] > north:
             north = point[0]
         if point[0] < south:
@@ -48,7 +48,7 @@ def graphdata():
     visited = []
     flat_path = []
 
-    modes_names = {MODE_WALKING: "Walking", MODE_BUS: "Bus", MODE_TRAIN: "Train"}
+    modes_names = {MODE_WALKING: "Walking", MODE_BUS: "Bus", MODE_TRAIN: "Train", MODE_CAR: "Car"}
 
     def add_connections(point):
         if point.name in visited:

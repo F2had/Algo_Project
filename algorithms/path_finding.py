@@ -84,7 +84,6 @@ def find_path(start_name, end_name):
                     connection_prev[connection.to_point.name] = connection
 
     if connection_prev[end_name] == -1:
-        # TODO: replace with actual working error handling
         raise Exception(f'No path found from {start_name} to {end_name}')
     path = []
     points_on_way = []

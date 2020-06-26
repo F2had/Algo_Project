@@ -1,5 +1,4 @@
 from extract_Info.analysis import Analysis
-import math
 
 
 def apply_sentiment(paths_arg):
@@ -20,6 +19,7 @@ def apply_sentiment(paths_arg):
         for path in paths:
             new_time = 0
 
+            # direction = point name, transit, time, distance
             for direction in path['directions']:
                 new_time_segment = direction[2]
                 if direction[1] == 'Bus' or direction[1] == 'Car':
