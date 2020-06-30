@@ -100,11 +100,11 @@ class Analysis():
 
         for n in negativeText:
             result = Boyer_Moore_Matcher(text, n)
-            self.pos += len(result)
+            self.neg += len(result)
 
         for p in positiveText:
             result = Boyer_Moore_Matcher(text, p)
-            self.neg += len(result)
+            self.pos += len(result)
 
         self.neutral = self.article_len - (self.pos + self.neg)
         if self.debug:
