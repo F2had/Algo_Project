@@ -21,33 +21,30 @@ class Analysis():
 
         self.debug = debug
 
-    def run_analysis(self):
+    def run_analysis(self, url):
+        self.stopword = []
+        self.freq = []
+        self.word = []
+        self.article_len = 0
+        self.pos = 0
+        self.neg = 0
+        self.neutral = 0
+        self.url_count += 1
+        # request the article
+        try:
+            response = urllib.request.urlopen(url)
+            html = response.read()
+            soup = BeautifulSoup(html, features='lxml')
+            text = soup.get_text(strip=True)
+        except:
+            return
 
-        for num in range(1, 1 + 1):
-            file = path.dirname(__file__) + f'/articles/article{num}.txt'
+        self.words_frequency(text)
+        self.freq_graph()
 
-            self.stopword = []
-            self.freq = []
-            self.word = []
-            self.article_len = 0
-            self.pos = 0
-            self.neg = 0
-            self.neutral = 0
-            self.url_count += 1
-
-            text = ""
-            with open(file, 'r',encoding='utf-8' ) as f:
-                text = f.read()
-
-            self.words_frequency(text)
-            self.freq_graph()
-
-            self.article_len = len(text)
-            self.article_sentiment(text)
-            self.senti_graph()
-
-
-
+        self.article_len = len(text)
+        self.article_sentiment(text)
+        self.senti_graph()
 
 
     def extract_text(self):

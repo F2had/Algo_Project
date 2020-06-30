@@ -25,7 +25,7 @@ def badCharHeuristic(string, size):
     '''
 
     # Initialize all occurrence as -1
-    badChar = [-1] * 25600
+    badChar = [-1] * 0xFFFF
 
     # Fill the actual value of last occurrence
     for i in range(size):
