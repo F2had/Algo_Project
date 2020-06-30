@@ -34,7 +34,6 @@ def get_time_distance(from_p, to_p, method):
         mode = "walking"
     else:
         mode = "driving"
-    # FIXME: method 2 is walking, we can't import MODE_WALKING, because it would result in circular import
     result = __gmaps.distance_matrix(from_p, to_p, mode=mode, region='MY')
 
     element = result['rows'][0]['elements'][0]

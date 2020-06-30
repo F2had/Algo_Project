@@ -9,10 +9,10 @@ app = Flask(__name__)
 
 
 def get_bounds(path):
-    north = -180
+    north = -90
     west = 180
     east = -180
-    south = 180
+    south = 90
 
     for point in path:
         if point[0] > north:

@@ -2,7 +2,6 @@ from os import path
 
 from data.database_builder import get_time_distance
 
-# FIXME: change to string might be better
 MODE_TRAIN = 0
 MODE_BUS = 1
 MODE_WALKING = 2

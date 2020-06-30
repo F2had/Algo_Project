@@ -97,7 +97,7 @@ function drawPaths(paths) {
     }
 
     if (paths.length > 0) {
-        select_path(0); // TODO: add object
+        select_path(0);
     }
 }
 
