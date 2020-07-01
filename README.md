@@ -10,7 +10,7 @@ In this app passengers should be able to find the fastest 12 path sorted by time
 
 
 ## Getting  Started
-Before running the app you need to install all the dependencies you can do so by run this "**pip install -r requirements.txt**" in project directory <br>
+Before running the app you need to install all the dependencies you can do so by run this ```pip install -r requirements.txt``` in project directory <br>
 
 <br>
 
