@@ -7,7 +7,7 @@ MODE_TRAIN = 0
 MODE_BUS = 1
 MODE_WALKING = 2
 
-__gmaps = googlemaps.Client(key='AIzaSyApye8aayb20yXZkHybB3XEvO1bvgfDy3w')
+__gmaps = googlemaps.Client(key='YOUR_API_GOES_HERE')
 nominatim = geopy.Nominatim(user_agent="my-application")
 
 
